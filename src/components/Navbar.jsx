@@ -116,13 +116,13 @@ const Navbar = ({ user }) => {
                         <MenuList>
                             <Link to="/rewards" className="flex gap-2 items-center ml-2">
                                 <RiArticleFill />
-                                <div>Articles</div>
+                                <div>Rewards</div>
                             </Link>
                         </MenuList>
                         <MenuItem>
-                            <Link to="/articles" className="flex gap-2 items-center">
+                            <Link to="/Articles" className="flex gap-2 items-center">
                                 <FaCoins />
-                                <div>Rewards</div>
+                                <div>Articles</div>
                             </Link>
                         </MenuItem>
                     </MenuList>
