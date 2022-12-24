@@ -5,7 +5,8 @@ import LoadingBar from 'react-top-loading-bar';
 import SolutionComponent from '../components/SolutionComponent';
 import Component2Home from '../components/Component2Home';
 import PlantATree from '../components/PlantATree';
-
+import WaterATree from '../components/WaterATree';
+import Rewards from '../components/Rewards';
 const Home = () => {
     return (
         <>
@@ -13,6 +14,8 @@ const Home = () => {
             <SolutionComponent />
             <Component2Home />
             <PlantATree />
+            <WaterATree />
+            <Rewards />
             <Routes>
                 <Route path="/plant" element={<Home />} />
                 <Route path="/water" element={<Home />} />
