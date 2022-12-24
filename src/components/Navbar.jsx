@@ -52,7 +52,7 @@ const Navbar = ({ user }) => {
                 <img src={logo} alt="logo" />
             </div>
             <div className='hidden gap-5 items-center md:flex'>
-                <Link to='/articles'>
+                <Link to='/Articles'>
                     <Button colorScheme='gray' variant='outline'>
                         Articles
                     </Button>
