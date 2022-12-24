@@ -2,7 +2,7 @@ import React from 'react'
 import { Card, CardHeader, CardBody, CardFooter } from '@chakra-ui/react'
 import { Button, Image, Stack, Heading, Text } from '@chakra-ui/react'
 
-const plantATree = () => {
+const PlantATree = () => {
   return (
     <div className='flex'>
         <Card
@@ -38,4 +38,4 @@ const plantATree = () => {
   )
 }
 
-export default plantATree
+export default PlantATree

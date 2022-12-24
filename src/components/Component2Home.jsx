@@ -1,6 +1,6 @@
 import React from 'react'
 
-const component2Home = () => {
+const Component2Home = () => {
   return (
     <div className="h-4/5 flex gap-5 ml-5">
         <div className="text-3xl font-bold">
@@ -10,4 +10,4 @@ const component2Home = () => {
   )
 }
 
-export default component2Home
+export default Component2Home
