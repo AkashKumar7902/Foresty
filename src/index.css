@@ -16,3 +16,7 @@
     height: 100vh;
     overflow: hidden;
 }
+
+.nav-links:hover {
+    border-bottom: 2px solid rgb(38, 215, 22);
+}

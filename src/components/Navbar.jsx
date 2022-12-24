@@ -1,7 +1,7 @@
 import React from 'react'
 import logo from '../assets/logo192.png'
 import { Button } from '@chakra-ui/react'
-import { Link } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaCoins } from 'react-icons/fa'
 import { RiArticleFill } from 'react-icons/ri'
@@ -23,112 +23,91 @@ import {
 
 const Navbar = ({ user }) => {
     return (
-        // <div className='flex justify-between items-center px-20 absolute top-0 left-0 h-20 w-full'>
-        //     <div className=''>
-        //         Project JO kal navbar banaya tha wahi use kr le na
-        //     </div>
-        //     <div className='flex gap-2'>
-        //         <Link to='/articles'>
-        //             Articles
-        //         </Link>
-        //         <Link to="/rewards">
-        //             Rewards
-        //         </Link>
-        //         {user ? (
-        //             <Button colorScheme="gray" className='mr-4'>Login</Button>
-        //         ) : (
-        //             // <Link to={`user-profile/${user?._id}`} className="hidden md:block">
-        //             //     <img src={user.image} alt="user" className="w-14 h-12 rounded-lg" />
-        //             // </Link>
-        //             <div className='mr-4'>
-                        
-        //             </div>
-        //         )}
-        //     </div>
-        // </div>
-        <>
-        <div className='flex d-fixed shadow-2xl bg-green-600 justify-between items-center h-14 w-full'>
-            <div className='w-16 text-green-800 m-3' >
-                <img src={logo} alt="logo" />
-            </div>
-            <div className='hidden gap-5 items-center md:flex'>
-                <Link to='/Articles'>
-                    <Button colorScheme='gray' variant='outline'>
-                        Articles
-                    </Button>
-                </Link>
-                <Link to="/rewards">
-                    <Button colorScheme='gray' variant='outline'>
-                        Rewards
-                    </Button>
-                </Link>
-                {user ? (
-                    <Button colorScheme="gray" className='mr-4'>Login</Button>
-                ) : (
-                    // <Link to={`user-profile/${user?._id}`} className="hidden md:block">
-                    //     <img src={user.image} alt="user" className="w-14 h-12 rounded-lg" />
-                    // </Link>
-                    <div className='mr-4'>
-                        <Menu >
-                            <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                                Profile
-                            </MenuButton>
-                            <MenuList className="shadow-xl">
-                                <MenuItem>Your Profile</MenuItem>
-                                <MenuItem>Sign Out</MenuItem>
-                            </MenuList>
-                        </Menu>
-                    </div>
-                )}
-            </div>
-            <div className='md:hidden mr-3'>
-                <Menu >
-                    <MenuButton as={Button}>
-                        <GiHamburgerMenu />
-                    </MenuButton>
-                    <MenuList className="shadow-xl">
-                        {user ? (
-                            <>
-                                <MenuItem>
-                                    <Link to={`/profile/${user?.id}`} className="flex gap-2 items-center">
-                                        <CgProfile />
-                                        <div>Profile</div>
-                                    </Link>
-                                </MenuItem>
-                                <MenuItem>
-                                    <Link to="/log" className="flex gap-2 items-center">
-                                        <FiLogOut />
-                                        <div>Logout</div>
-                                    </Link>
-                                </MenuItem>
-                            </>
-                        ) : (
-                            <>
-                                <MenuItem>
-                                    <Link to="/login" className="flex gap-2 items-center">
-                                        <FiLogIn />
-                                        <div>Login</div>
-                                    </Link>
-                                </MenuItem>
-                            </>
-                        )}
 
-                        <MenuList>
-                            <Link to="/rewards" className="flex gap-2 items-center ml-2">
-                                <RiArticleFill />
-                                <div>Rewards</div>
-                            </Link>
+        <>
+            <div className='fixed flex flex-row justify-between z-50 w-full text-gray-900 bg-gray-300 bg-opacity-70 dark:bg-dark dark:text-gray-100 backdrop-filter backdrop-blur-lg dark:bg-opacity-50'>
+                <Link to='/'>
+                    <img src={logo} className="w-[50px] ml-[10px]" alt="logo" />
+                </Link>
+                <div className='hidden gap-5 items-center md:flex'>
+                    <Link to='/Articles'>
+                        <p className='transition-border duration-100 ease-out text-black font-semibold text-green-900 text-lg nav-links'>
+                            Articles
+                        </p>
+                        {/* <Button colorScheme='green' variant='solid'>
+                            Articles
+                        </Button> */}
+                    </Link>
+                    <Link to="/rewards">
+                        <p className='text-black font-semibold text-green-900 text-lg nav-links'>
+                            Rewards
+                        </p>
+                    </Link>
+                    {user ? (
+                        <Button colorScheme="green" className='mr-4'>Login</Button>
+                    ) : (
+                        <div className='mr-4'>
+                            <Menu >
+                                <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
+                                    Profile
+                                </MenuButton>
+                                <MenuList colorScheme="green" className="shadow-xl">
+                                    <MenuItem>Your Profile</MenuItem>
+                                    <MenuItem>Sign Out</MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </div>
+                    )}
+                </div>
+                <div className='md:hidden mr-3'>
+                    <Menu >
+                        <MenuButton as={Button}>
+                            <GiHamburgerMenu className='text-black' />
+                        </MenuButton>
+                        <MenuList className="shadow-xl">
+                            {user ? (
+                                <>
+                                    <MenuItem>
+                                        <Link to={`/profile/${user?.id}`} className="flex gap-2 items-center">
+                                            <CgProfile />
+                                            <div>Profile</div>
+                                        </Link>
+                                    </MenuItem>
+                                    <MenuItem>
+                                        <Link to="/log" className="flex gap-2 items-center">
+                                            <FiLogOut />
+                                            <div>Logout</div>
+                                        </Link>
+                                    </MenuItem>
+                                </>
+                            ) : (
+                                <>
+                                    <MenuItem>
+                                        <Link to="/login" className="flex gap-2 items-center">
+                                            <FiLogIn />
+                                            <div>Login</div>
+                                        </Link>
+                                    </MenuItem>
+                                </>
+                            )}
+
+                            <MenuList>
+                                <Link to="/rewards" className="flex gap-2 items-center ml-2">
+                                    <RiArticleFill />
+                                    <div>Rewards</div>
+                                </Link>
+                            </MenuList>
+                            <MenuItem>
+                                <Link to={`articles`} className="flex gap-2 items-center">
+                                    <FaCoins />
+                                    <div>Articles</div>
+                                </Link>
+                            </MenuItem>
                         </MenuList>
-                        <MenuItem>
-                            <Link to="/Articles" className="flex gap-2 items-center">
-                                <FaCoins />
-                                <div>Articles</div>
-                            </Link>
-                        </MenuItem>
-                    </MenuList>
-                </Menu>
-            </div>
-        </div >
+                    </Menu>
+                </div>
+            </div >
+            <Outlet />
         </>
     )
 }
