@@ -8,15 +8,38 @@
     padding: 0;
 }
 
-.component1 {
-    background-image: url("./assets/c1homeOpt1.png");
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100vh;
-    overflow: hidden;
+.rewards-bg {
+    background-image: linear-gradient(to right, #7fe56f, #2be027);
+    width: 100%;
+    height: 50vh;
 }
 
 .nav-links:hover {
     border-bottom: 2px solid rgb(38, 215, 22);
+}
+
+.list {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 20px;
+    border-radius: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+@media screen and (max-width: 768px) {
+    .list {
+        padding: 12px;
+        border-radius: 10px;
+    }
+}
+
+.list:nth-of-type(2n) {
+    background-color: #9acb93;
+}
+
+.list:nth-of-type(2n + 1) {
+    background-color: #8bda8a;
 }
