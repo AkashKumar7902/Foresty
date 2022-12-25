@@ -2,7 +2,12 @@ import React from 'react'
 
 const Plant = () => {
     return (
-        <div>Plant</div>
+        <div>
+            <div></div>
+            <div>
+
+            </div>
+        </div>
     )
 }
 

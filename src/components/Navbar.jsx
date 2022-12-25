@@ -107,7 +107,6 @@ const Navbar = ({ user }) => {
                     </Menu>
                 </div>
             </div >
-            <Outlet />
         </>
     )
 }
