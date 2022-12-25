@@ -23,9 +23,8 @@ import {
 
 const Navbar = ({ user }) => {
     return (
-
         <>
-            <div className='fixed flex flex-row justify-between z-50 w-full text-gray-900 bg-gray-300 bg-opacity-70 dark:bg-dark dark:text-gray-100 backdrop-filter backdrop-blur-lg dark:bg-opacity-50'>
+            <div className='fixed top-0 flex flex-row justify-between z-50 w-full text-gray-900 bg-gray-300 bg-opacity-70 dark:bg-dark dark:text-gray-100 backdrop-filter backdrop-blur-lg dark:bg-opacity-50'>
                 <Link to='/'>
                     <img src={logo} className="w-[50px] ml-[10px]" alt="logo" />
                 </Link>

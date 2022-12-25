@@ -6,7 +6,7 @@ import waterTree from '../assets/waterTree.jpg'
 
 const WaterATree = () => {
     return (
-        <div className='flex overflow-hidden flex-col md:flex-row mx-12 text-4xl gap-10 items-center h-[80vh]'>
+        <div className='flex overflow-hidden flex-col md:flex-row mx-12 text-4xl gap-10 items-center mt-[70px]'>
             <div className='flex flex-col gap-5 order-2 md:order-1'>
                 <p className='bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-red-600'>
                     Water a nearby planted tree to help it grow.

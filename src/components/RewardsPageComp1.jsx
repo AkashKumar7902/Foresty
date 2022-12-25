@@ -7,7 +7,7 @@ import badge from '../assets/badge.png'
 
 const RewardsPageComp1 = () => {
     return (
-        <div>
+        <div className='flex flex-col items-center justify-center w-full'>
             <div className='pt-20'>
                 <Text className='text-center'
                     bgGradient='linear(to-l, #7928CA, #FF0080)'
@@ -22,12 +22,12 @@ const RewardsPageComp1 = () => {
                 Redeem your points for awesome goodies and vouchers.
             </div>
 
-            <div className='flex justify-center pd-2'>
+            <div className='flex md:flex-row flex-col justify-center pd-2'>
                 <div className='px-10'>
                     <Card maxW='sm'>
                         <CardBody>
                             <Image className='px-5 py-5'
-                                src = {badge}                                
+                                src={badge}
                                 alt='badge'
                                 borderRadius='lg'
                             />
@@ -58,7 +58,7 @@ const RewardsPageComp1 = () => {
                     <Card maxW='sm'>
                         <CardBody>
                             <Image className='px-10 py-1'
-                                src = {t_shirt}                                
+                                src={t_shirt}
                                 alt='t-shirt'
                                 borderRadius='lg'
                             />
@@ -89,7 +89,7 @@ const RewardsPageComp1 = () => {
                     <Card maxW='sm'>
                         <CardBody>
                             <Image className='px-1 py-1'
-                                src = {hoodie}                                
+                                src={hoodie}
                                 alt='hoodie'
                                 borderRadius='lg'
                             />
@@ -120,7 +120,7 @@ const RewardsPageComp1 = () => {
                     <Card maxW='sm'>
                         <CardBody>
                             <Image className='px-10 py-20'
-                                src = {Amazon_logo}                                
+                                src={Amazon_logo}
                                 alt='gc-250'
                                 borderRadius='lg'
                             />
