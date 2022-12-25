@@ -7,7 +7,7 @@ const footer = () => {
             <div className="grid md:grid-cols-5 bg-skin-lightBlue p-10 grid-cols-1 mt-10">
                 <div className=" text-center m-auto">
                     <img className="w-56 m-auto" src="/Logo.png" alt="logo" />
-                    <p className="hidden lg:block">Your simple donation can change another's life.</p>
+                    <p className="hidden lg:block">Plant trees and .</p>
                 </div>
                 <div className=" m-auto text-center md:text-left my-7">
                     <h2 className="text-xl font-bold mb-2">Know Us</h2>
