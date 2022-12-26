@@ -3,6 +3,7 @@ import { Outlet } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import LoginBtn from './LoginBtn'
 
 const HeaderFooter = () => {
     return (
@@ -10,10 +11,10 @@ const HeaderFooter = () => {
         <GoogleOAuthProvider
           clientId={`${process.env.REACT_APP_GOOGLE_LOGIN_CLIENT_ID}`}
         >
-          <Navbar />
+            <Navbar />
+            <Outlet />
+            <Footer />
         </GoogleOAuthProvider>
-        <Outlet />
-        <Footer />
       </>
     );
 }

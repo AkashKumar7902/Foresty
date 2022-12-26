@@ -3,6 +3,7 @@ import { Button, ListItem, OrderedList } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { RiPlantFill } from 'react-icons/ri'
 import formPlant from '../assets/formPlant.svg'
+import LoginBtn from "../components/LoginBtn";
 
 const Plant = ({ user }) => {
     const [name, setName] = useState(null);
@@ -52,7 +53,7 @@ const Plant = ({ user }) => {
                     <div className="mt-10 flex flex-col gap-4 justify-center items-center h-[50vh] w-full border-dashed border-2 shadow-xl rounded-xl border-gray-400 bg-gray-200">
                         <p className='text-lg text-gray-500'>Login is required to fill the form </p>
                         <a href="/login">
-                            <Button colorScheme='blue'>Login</Button>
+                            <LoginBtn />
                         </a>
                     </div>
                 )}

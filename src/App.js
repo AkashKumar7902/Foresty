@@ -1,6 +1,5 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
-// import Login from './containers/Login';
 import Home from './containers/Home';
 import { ChakraProvider } from '@chakra-ui/react'
 import Articles from './containers/Articles';
@@ -13,8 +12,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google'
 
 const App = () => {
     return (
-        <ChakraProvider>
-            <Routes>
+      <ChakraProvider>
+        <Routes>
                 <Route element={<HeaderFooter />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/articles" element={<Articles />} />
@@ -23,9 +22,9 @@ const App = () => {
                     <Route path="/water" element={<Water />} />
                     <Route path="/contact" element={<Contact />} />
                 </Route>
-            </Routes >
-        </ChakraProvider>
-    )
+        </Routes>
+      </ChakraProvider>
+    );
 }
 
 export default App

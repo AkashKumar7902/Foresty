@@ -1,7 +1,6 @@
 import React from 'react'
 import logo from '../assets/logo192.png'
 import { Button } from '@chakra-ui/react'
-import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaCoins } from 'react-icons/fa'
@@ -20,30 +19,11 @@ import {
     MenuOptionGroup,
     MenuDivider,
 } from '@chakra-ui/react'
-import jwt_decode from "jwt-decode";
-
-import { client } from '../client'
+import LoginBtn from './LoginBtn'
 
 const Navbar = ({ user }) => {
 
     const navigate = useNavigate();
-
-    function login(res) {
-        const data = jwt_decode(res.credential);
-        console.log(data);
-        localStorage.setItem("user", JSON.stringify(data));
-        const { name, picture, sub } = data;
-        const doc = {
-            _id: sub,
-            _type: "user",
-            userName: name,
-            image: picture,
-        };
-        client.createIfNotExists(doc).then(() => {
-            console.log("success");
-            navigate("/", { replace: true });
-        });
-    }
 
     return (
         <>
@@ -63,14 +43,8 @@ const Navbar = ({ user }) => {
                         </p>
                     </Link>
                     {!user ? (
-                    <GoogleLogin
-                        onSuccess={credentialResponse => {
-                                login(credentialResponse);
-                        }}
-                        onError={() => {
-                            console.log('Login Failed');
-                        }}
-                    />) : (
+                        <LoginBtn/>
+                    ): (
                         <div className='mr-4'>
                             <Menu >
                                 <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
