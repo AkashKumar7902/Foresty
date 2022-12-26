@@ -129,7 +129,7 @@ const Login = () => {
                         </div>
                     </div>
                     </div> */}
-                        <Link href="/">
+                        <Link to="/">
                             <div className="flex justify-center ">
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
@@ -145,11 +145,9 @@ const Login = () => {
                                         d="M7 16l-4-4m0 0l4-4m-4 4h18"
                                     />
                                 </svg>
-                                <button onClick={()=>navigate('/')}>
                                 <p className="pl-3 font-semibold hover:underline no-underline transition-all text-skin-darkBlue hover:text-blue-900 cursor-pointer text-center " >
                                     Back to Home
                                 </p>
-                                </button>
                             </div>
                         </Link>
                     </div>
