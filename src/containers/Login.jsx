@@ -7,7 +7,7 @@ import { client } from '../client'
 
 const Login = () => {
     const login2 = useGoogleLogin({
-        onSuccess: tokenResponse => login(tokenResponse),
+        onSuccess: tokenResponse => console.log(tokenResponse),
     });
 
     const navigate = useNavigate();
@@ -24,6 +24,7 @@ const Login = () => {
         };
         client.createIfNotExists(doc)
             .then(() => {
+                console.log('success')
                 navigate('/', { replace: true });
             })
     }
@@ -144,9 +145,11 @@ const Login = () => {
                                         d="M7 16l-4-4m0 0l4-4m-4 4h18"
                                     />
                                 </svg>
-                                <p className="pl-3 font-semibold hover:underline no-underline transition-all text-skin-darkBlue hover:text-blue-900 cursor-pointer text-center ">
+                                <button onClick={()=>navigate('/')}>
+                                <p className="pl-3 font-semibold hover:underline no-underline transition-all text-skin-darkBlue hover:text-blue-900 cursor-pointer text-center " >
                                     Back to Home
                                 </p>
+                                </button>
                             </div>
                         </Link>
                     </div>

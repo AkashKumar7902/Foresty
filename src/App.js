@@ -15,9 +15,14 @@ const App = () => {
     return (
         <ChakraProvider>
             <Routes>
-                <GoogleOAuthProvider>
+                {/* <GoogleOAuthProvider>
                     <Route path="login" element={<Login />} />
-                </GoogleOAuthProvider>
+                </GoogleOAuthProvider> */}
+                <Route path="login" element={ 
+                    <GoogleOAuthProvider clientId="667294878730-orb1ph9gq1g0l36qktn7m659o9eba96l.apps.googleusercontent.com"> 
+                <Login /> 
+                </GoogleOAuthProvider> 
+                }/>
                 <Route element={<HeaderFooter />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/articles" element={<Articles />} />

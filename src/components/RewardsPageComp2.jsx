@@ -10,63 +10,63 @@ const RewardsPageComp2 = () => {
             Ways to earn points
         </div>
         <div className='flex justify-center py-10'>
-        <Card
-            direction={{ base: 'column', sm: 'row' }}
-            overflow='hidden'
-            variant='outline'
-            >
-            <Image
-                objectFit='cover'
-                maxW={{ base: '100%', sm: '200px' }}
-                src = {plant_a_tree}                
-                alt='Caffe Latte'
-            />
+            <Card
+                direction={{ base: 'column', sm: 'row' }}
+                overflow='hidden'
+                variant='outline'
+                >
+                <Image
+                    objectFit='cover'
+                    maxW={{ base: '100%', sm: '200px' }}
+                    src = {plant_a_tree}                
+                    alt='Caffe Latte'
+                />
 
-            <Stack>
-                <CardBody>
-                <Heading size='md' color='darkgreen'>Plant a tree</Heading>
+                <Stack>
+                    <CardBody>
+                    <Heading size='md' color='darkgreen'>Plant a tree</Heading>
 
-                <Text py='2'>
-                    Plant a tree and help the earth be a better place to live in.
-                </Text>
-                </CardBody>
+                    <Text py='2'>
+                        Plant a tree and help the earth be a better place to live in.
+                    </Text>
+                    </CardBody>
 
-                <CardFooter>
-                <Button variant='solid' colorScheme='green'>
-                    +50 points
-                </Button>
-                </CardFooter>
-            </Stack>
+                    <CardFooter>
+                    <Button variant='solid' colorScheme='green'>
+                        +50 points
+                    </Button>
+                    </CardFooter>
+                </Stack>
             </Card>
         </div>
         <div className='flex justify-center py-10'>
-        <Card
-            direction={{ base: 'column', sm: 'row' }}
-            overflow='hidden'
-            variant='outline'
-            >
-            <Image
-                objectFit='cover'
-                maxW={{ base: '100%', sm: '200px' }}
-                src = {water_a_plant}                
-                alt='Watering'
-            />
+            <Card
+                direction={{ base: 'column', sm: 'row' }}
+                overflow='hidden'
+                variant='outline'
+                >
+                <Image
+                    objectFit='cover'
+                    maxW={{ base: '100%', sm: '200px' }}
+                    src = {water_a_plant}                
+                    alt='Watering'
+                />
 
-            <Stack>
-                <CardBody>
-                <Heading size='md' color='blue'>Water a plant</Heading>
+                <Stack>
+                    <CardBody>
+                    <Heading size='md' color='blue'>Water a plant</Heading>
 
-                <Text py='2'>
-                    Help trees planted by other users to grow by watering them.
-                </Text>
-                </CardBody>
+                    <Text py='2'>
+                        Help trees planted by other users to grow by watering them.
+                    </Text>
+                    </CardBody>
 
-                <CardFooter>
-                <Button variant='solid' colorScheme='blue'>
-                    +10 points
-                </Button>
-                </CardFooter>
-            </Stack>
+                    <CardFooter>
+                    <Button variant='solid' colorScheme='blue'>
+                        +10 points
+                    </Button>
+                    </CardFooter>
+                </Stack>
             </Card>
         </div>
     </div>
