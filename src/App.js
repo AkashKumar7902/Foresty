@@ -1,6 +1,6 @@
 import React from 'react'
 import { Routes, Route } from 'react-router-dom';
-import Login from './containers/Login';
+// import Login from './containers/Login';
 import Home from './containers/Home';
 import { ChakraProvider } from '@chakra-ui/react'
 import Articles from './containers/Articles';
@@ -15,14 +15,6 @@ const App = () => {
     return (
         <ChakraProvider>
             <Routes>
-                {/* <GoogleOAuthProvider>
-                    <Route path="login" element={<Login />} />
-                </GoogleOAuthProvider> */}
-                <Route path="login" element={ 
-                    <GoogleOAuthProvider clientId="667294878730-orb1ph9gq1g0l36qktn7m659o9eba96l.apps.googleusercontent.com"> 
-                <Login /> 
-                </GoogleOAuthProvider> 
-                }/>
                 <Route element={<HeaderFooter />}>
                     <Route path="/" element={<Home />} />
                     <Route path="/articles" element={<Articles />} />

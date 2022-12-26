@@ -1,7 +1,8 @@
 import React from 'react'
 import logo from '../assets/logo192.png'
 import { Button } from '@chakra-ui/react'
-import { Link, Outlet } from 'react-router-dom';
+import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
+import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi'
 import { FaCoins } from 'react-icons/fa'
 import { RiArticleFill } from 'react-icons/ri'
@@ -19,9 +20,31 @@ import {
     MenuOptionGroup,
     MenuDivider,
 } from '@chakra-ui/react'
+import jwt_decode from "jwt-decode";
 
+import { client } from '../client'
 
 const Navbar = ({ user }) => {
+
+    const navigate = useNavigate();
+
+    function login(res) {
+        const data = jwt_decode(res.credential);
+        console.log(data);
+        localStorage.setItem("user", JSON.stringify(data));
+        const { name, picture, sub } = data;
+        const doc = {
+            _id: sub,
+            _type: "user",
+            userName: name,
+            image: picture,
+        };
+        client.createIfNotExists(doc).then(() => {
+            console.log("success");
+            navigate("/", { replace: true });
+        });
+    }
+
     return (
         <>
             <div className='fixed top-0 flex flex-row justify-between z-50 w-full text-gray-900 bg-gray-300 bg-opacity-70 dark:bg-dark dark:text-gray-100 backdrop-filter backdrop-blur-lg dark:bg-opacity-50'>
@@ -33,18 +56,21 @@ const Navbar = ({ user }) => {
                         <p className='transition-border duration-100 ease-out text-black font-semibold text-green-900 text-lg nav-links'>
                             Articles
                         </p>
-                        {/* <Button colorScheme='green' variant='solid'>
-                            Articles
-                        </Button> */}
                     </Link>
                     <Link to="/rewards">
                         <p className='text-black font-semibold text-green-900 text-lg nav-links'>
                             Rewards
                         </p>
                     </Link>
-                    {user ? (
-                        <Button colorScheme="green" className='mr-4'>Login</Button>
-                    ) : (
+                    {!user ? (
+                    <GoogleLogin
+                        onSuccess={credentialResponse => {
+                                login(credentialResponse);
+                        }}
+                        onError={() => {
+                            console.log('Login Failed');
+                        }}
+                    />) : (
                         <div className='mr-4'>
                             <Menu >
                                 <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
