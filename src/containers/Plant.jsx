@@ -6,14 +6,6 @@ import formPlant from '../assets/formPlant.svg'
 
 const Plant = ({ user }) => {
     const [name, setName] = useState(null);
-    const [address, setAddress] = useState(null);
-
-    fetch(`https://api.waqi.info/feed/${address}/?token=2b9b1b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b0b`)
-        .then(res => res.json())
-        .catch(err => console.log(err))
-
-
-
 
     return (
         <div className='flex flex-col justify-center gap-32 pt-20 w-full px-3 sm:px-10 md:px-20'>
