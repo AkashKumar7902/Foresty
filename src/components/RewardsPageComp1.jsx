@@ -37,7 +37,7 @@ const RewardsPageComp1 = () => {
                                     Congratulations! You are now a Master Tree Planter. Use your points to redeem this badge.
                                 </Text>
                                 <Text color='blue.600' fontSize='2xl'>
-                                    100 points
+                                    reward
                                 </Text>
                             </Stack>
                         </CardBody>

@@ -10,7 +10,20 @@ import {Input} from '@chakra-ui/react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import { MdDelete } from 'react-icons/md';
 import TreeMap from '../components/TreeMap';
+import {
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
+  Box,
+  CloseButton,
+} from "@chakra-ui/react";
 
+
+const YlocationBtnStyles =
+  "bg-gray-300 hover:bg-gray-400 text-green-500 rounded-lg text-bold p-4";
+const NlocationBtnStyles =
+  "bg-gray-300 hover:bg-gray-400 text-red-500 rounded-lg text-bold p-4";
 const activeBtnStyles =
   "bg-green-800 text-white font-bold p-2 w-32 outline-none";
 const notActiveBtnStyles =
@@ -21,10 +34,47 @@ const Plant = () => {
   const [name, setName] = useState(null);
   const [user, setUser] = useState(null);
   const [text, setText] = useState('aqi');
+  const[address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [fields, setFields] = useState(false);
   const [imageAsset, setImageAsset] = useState(null);
   const [wrongImageType, setWrongImageType] = useState(false);
   const [species, setSpecies] = useState(null);
+
+  let token = process.env.REACT_APP_AQI_TOKEN;
+
+  const onClose = () => {
+    setFields(false);
+  }
+ 
+  const getLocationThroughIp = () => {
+    const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_IPGEO_TOKEN}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setAddress({ lat: res.latitude, long: res.longitude });
+      })
+      .catch((err) => console.log(err));
+  };
+
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, altWay);
+    } else {
+      getLocationThroughIp();
+    }
+  }
+
+  async function showPosition(position) {
+    setAddress({
+      lat: position.coords.latitude,
+      long: position.coords.longitude,
+    });
+  }
+
+  function altWay() {
+    getLocationThroughIp();
+  }
 
   const uploadImage = (e) => {
     const { type, name } = e.target.files[0];
@@ -45,6 +95,48 @@ const Plant = () => {
       setWrongImageType(true);
     }
   }
+
+  function submitTree() {
+    if(imageAsset?._id && species && address) {
+      console.log("iamin");
+      const doc = client.create({
+        _type: 'tree',
+        Location: {
+          _type: 'geopoint',
+          Latitude: address.lat,
+          Longitude: address.long,
+          Altitude: 0
+        },
+        Species: species,
+        PlantedBy: {
+          _type: 'reference',
+          _ref: user.sub
+        },
+        PlantedDate: {
+          _type: 'date',
+          _value: new Date().toISOString()
+        },
+        Plant_Image: {
+          _type: 'image',
+          asset: {
+            _type: 'reference',
+            _ref: imageAsset._id
+          }
+        }
+      })
+      client.create(doc)
+      .then(()=> {
+        window.location.reload();
+      })
+      .catch((err) => console.log(err))
+    }
+    else {
+      setFields(true);
+      setTimeout(() => {
+        setFields(false);
+      }, 2000);
+    }
+  }
   
   useEffect(() => {
     localStorage.getItem("user") !== "undefined"
@@ -60,6 +152,11 @@ const Plant = () => {
   
     return (
       <div className="flex flex-col justify-center gap-32 pt-20 w-full px-3 sm:px-10 md:px-20">
+        {fields && (
+          <div className="rounded-xl w-full p-3 bg-red-200 font-red-800">
+            Please fill all the fields
+            </div>
+        )}
         <div className="flex flex-col jusitfy-center gap-4 w-full">
           <div className="flex flex-row justify-center">
             <button
@@ -87,14 +184,15 @@ const Plant = () => {
             </button>
           </div>
           {text === "aqi" ? (
+            <div className="overflow:hidden w-full">
             <iframe
               width="100%"
               height="700px"
-              style={{ position: "relative" }}
               src="https://aqicn.org/here/#!gl!28.6542!77.2373"
             />
+              </div>
           ) : (
-            <div id="map"></div>
+            <TreeMap />
           )}
 
           {/* mapbox here */}
@@ -159,7 +257,9 @@ const Plant = () => {
                 </label>
               </div>
               <label className="flex flex-col gap-3 w-full items-center">
-                <p className="w-full lg:w-3/5 font-bold">Upload Image of the planted sapling</p>
+                <p className="w-full lg:w-3/5 font-bold">
+                  Upload Image of the planted sapling
+                </p>
                 <div className="flex justify-center items-center flex-col border-2 bg-gray-200 w-full lg:w-3/5 border-dashed border-gray-400 p-3 h-380">
                   {loading && <Spinner />}
                   {wrongImageType && <p>Wrong Image Type</p>}
@@ -201,6 +301,22 @@ const Plant = () => {
                   )}
                 </div>
               </label>
+              <div class="w-full">
+                <button
+                  type="button"
+                  onClick={() => {
+                    getLocation();
+                  }}
+                  className={address ? YlocationBtnStyles : NlocationBtnStyles}
+                >
+                  give location access
+                </button>
+              </div>
+              <div>
+                <button onClick={submitTree} className={activeBtnStyles}>
+                  Submit
+                </button>
+              </div>
             </div>
           ) : (
             <div className="mt-10 flex flex-col gap-4 justify-center items-center h-[50vh] w-full border-dashed border-2 shadow-xl rounded-xl border-gray-400 bg-gray-200">

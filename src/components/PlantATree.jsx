@@ -14,6 +14,7 @@ const PlantATree = () => {
 
     useEffect(() => {
         getAQI();
+        localStorage.setItem("location", JSON.stringify(address));  
     }, [address]);
 
     let token = process.env.REACT_APP_AQI_TOKEN;

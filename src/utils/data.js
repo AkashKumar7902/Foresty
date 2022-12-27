@@ -1,0 +1,1 @@
+export const getRewardsInfo = `*[_type=="rewards"]`;
