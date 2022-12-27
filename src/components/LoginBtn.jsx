@@ -16,16 +16,20 @@ const LoginBtn = () => {
             userName: name,
             image: picture,
         };
-        client.createIfNotExists(doc).then(() => {
+        client.createIfNotExists(doc).then(() => {  
             console.log("success");
             navigate("/", { replace: true });
         });
     }
     return (
         <GoogleLogin
-            type="icon"
+            type="standard"
             size="large"
-            text="signin"
+            text="signinwith"
+            shape="rectangular"
+            theme="filled_blue"
+            // state_cookie_domain="/"
+            useOneTap={true}
             onSuccess={credentialResponse => {
                 login(credentialResponse);
             }}

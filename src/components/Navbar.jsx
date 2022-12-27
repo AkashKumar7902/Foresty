@@ -21,7 +21,16 @@ import {
 } from '@chakra-ui/react'
 import LoginBtn from './LoginBtn'
 
-const Navbar = ({ user }) => {
+const Navbar = () => {
+
+    const logOut = () => {
+        localStorage.clear();
+    }
+
+    const user =
+      localStorage.getItem("user") !== "undefined"
+        ? JSON.parse(localStorage.getItem("user"))
+        : localStorage.clear();
 
     const navigate = useNavigate();
 
@@ -46,13 +55,15 @@ const Navbar = ({ user }) => {
                         <LoginBtn/>
                     ): (
                         <div className='mr-4'>
-                            <Menu >
+                            <Menu>
                                 <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
                                     Profile
                                 </MenuButton>
                                 <MenuList colorScheme="green" className="shadow-xl">
                                     <MenuItem>Your Profile</MenuItem>
-                                    <MenuItem>Sign Out</MenuItem>
+                                        <button type="button" onClick={logOut}>
+                                            <MenuItem>Sign Out</MenuItem>
+                                        </button>
                                 </MenuList>
                             </Menu>
                         </div>

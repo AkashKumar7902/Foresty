@@ -29,6 +29,16 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
+#aqi {
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
+}
+
+#TreeMap {
+border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px ;
+} 
+
 @media screen and (max-width: 768px) {
     .list {
         padding: 12px;
@@ -42,3 +52,21 @@
 .list:nth-of-type(2n + 1) {
     background-color: #8bda8a;
 }
+
+.map-container {
+    height: 400px;
+  }
+
+
+.sidebar {
+    background-color: rgba(35, 55, 75, 0.9);
+    color: #fff;
+    padding: 6px 12px;
+    font-family: monospace;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 12px;
+    border-radius: 4px;
+    }
