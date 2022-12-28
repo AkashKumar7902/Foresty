@@ -8,8 +8,8 @@ import PlantATree from '../components/PlantATree';
 import WaterATree from '../components/WaterATree';
 import Rewards from '../components/Rewards';
 import Articles from './Articles';
+const Home = ({loginReq}) => {
 
-const Home = () => {
     return (
         <>
             <SolutionComponent />

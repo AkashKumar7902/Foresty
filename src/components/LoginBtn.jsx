@@ -9,12 +9,13 @@ const LoginBtn = () => {
         const data = jwt_decode(res.credential);
         console.log(data);
         localStorage.setItem("user", JSON.stringify(data));
-        const { name, picture, sub } = data;
+        const { name, picture, sub, email } = data;
         const doc = {
             _id: sub,
             _type: "user",
             userName: name,
             image: picture,
+            email,
         };
         client.createIfNotExists(doc).then(() => {  
             console.log("success");
