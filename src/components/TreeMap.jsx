@@ -62,21 +62,16 @@ const TreeMap = () => {
     )
   }, [trees]);
 
-  console.log(treesAll);
-
-
   return (
     <div className='map-container'>
       <Map
-
         initialViewState={{
           latitude: address.lat,
-          longitude: address.lng,
+          longitude: address.long,
           zoom: 10,
           bearing: 0,
           pitch: 0
         }}
-        onError={e => console.error(e)}
         mapStyle="mapbox://styles/mapbox/streets-v11"
         mapboxAccessToken={mapboxgl.accessToken}
       >
