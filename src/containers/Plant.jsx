@@ -21,7 +21,7 @@ import {
 
 
 const YlocationBtnStyles =
-  "bg-gray-300 hover:bg-gray-400 text-green-500 rounded-lg text-bold p-4";
+  "bg-gray-300 cursor:default text-green-500 rounded-lg text-bold p-4";
 const NlocationBtnStyles =
   "bg-gray-300 hover:bg-gray-400 text-red-500 rounded-lg text-bold p-4";
 const activeBtnStyles =
@@ -78,8 +78,7 @@ const Plant = () => {
 
   const uploadImage = (e) => {
     const { type, name } = e.target.files[0];
-    console.log(type);
-    if (type === 'image/png' || type === 'image/svg' || type === 'image/jpg' || type === 'image/gif') {
+    if (type === 'image/png' || type === 'image/svg' || type === 'image/jpg' || type === 'image/gif' || type === 'image/jpeg') {
       setWrongImageType(false);
       setLoading(true);
       client.assets
@@ -97,44 +96,40 @@ const Plant = () => {
   }
 
   function submitTree() {
+    const date = new Date().toISOString().substr(0, 10);
     if(imageAsset?._id && species && address) {
-      console.log("iamin");
-      const doc = client.create({
-        _type: 'tree',
-        Location: {
+      const doc = {
+        _type: 'trees',
+        location: {
           _type: 'geopoint',
-          Latitude: address.lat,
-          Longitude: address.long,
-          Altitude: 0
+          lat: +address.lat,
+          lng: +address.long,
         },
-        Species: species,
-        PlantedBy: {
+        species: species,
+        plantedby: {
           _type: 'reference',
           _ref: user.sub
         },
-        PlantedDate: {
-          _type: 'date',
-          _value: new Date().toISOString()
-        },
-        Plant_Image: {
+        plantedDate: date,
+        plant_image: {
           _type: 'image',
           asset: {
             _type: 'reference',
             _ref: imageAsset._id
           }
         }
-      })
+      };
       client.create(doc)
-      .then(()=> {
-        window.location.reload();
-      })
-      .catch((err) => console.log(err))
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err))
     }
     else {
       setFields(true);
       setTimeout(() => {
         setFields(false);
-      }, 2000);
+      }, 5000);
     }
   }
   
@@ -152,11 +147,6 @@ const Plant = () => {
   
     return (
       <div className="flex flex-col justify-center gap-32 pt-20 w-full px-3 sm:px-10 md:px-20">
-        {fields && (
-          <div className="rounded-xl w-full p-3 bg-red-200 font-red-800">
-            Please fill all the fields
-            </div>
-        )}
         <div className="flex flex-col jusitfy-center gap-4 w-full">
           <div className="flex flex-row justify-center">
             <button
@@ -185,12 +175,12 @@ const Plant = () => {
           </div>
           {text === "aqi" ? (
             <div className="overflow:hidden w-full">
-            <iframe
-              width="100%"
-              height="700px"
-              src="https://aqicn.org/here/#!gl!28.6542!77.2373"
-            />
-              </div>
+              <iframe
+                width="100%"
+                height="700px"
+                src="https://aqicn.org/here/#!gl!28.6542!77.2373"
+              />
+            </div>
           ) : (
             <TreeMap />
           )}
@@ -291,9 +281,9 @@ const Plant = () => {
                         className="h-full w-full"
                       />
                       <button
-                        type="button"
-                        className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
-                        onClick={() => setImageAsset(null)}
+                          type="button"
+                          className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
+                          onClick={(e) => { e.preventDefault(); setImageAsset(null) }}
                       >
                         <MdDelete />
                       </button>
@@ -317,6 +307,11 @@ const Plant = () => {
                   Submit
                 </button>
               </div>
+              {fields && (
+                <div className="rounded-xl w-full p-3 bg-red-200 font-red-800">
+                  Please fill all the fields
+                </div>
+              )}
             </div>
           ) : (
             <div className="mt-10 flex flex-col gap-4 justify-center items-center h-[50vh] w-full border-dashed border-2 shadow-xl rounded-xl border-gray-400 bg-gray-200">

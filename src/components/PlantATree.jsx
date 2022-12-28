@@ -17,6 +17,10 @@ const PlantATree = () => {
         localStorage.setItem("location", JSON.stringify(address));  
     }, [address]);
 
+    const options = {
+        enableHighAccuracy: true,
+    }
+
     let token = process.env.REACT_APP_AQI_TOKEN;
 
     const getLocationThroughIp = () => {
@@ -31,7 +35,7 @@ const PlantATree = () => {
 
     function getLocation() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(showPosition, altWay);
+            navigator.geolocation.getCurrentPosition(showPosition, altWay, options);
         }
         else {
             getLocationThroughIp();
