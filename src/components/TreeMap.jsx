@@ -18,8 +18,7 @@ mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_TOKEN;
 const TreeMap = () => {
 
   const [trees, setTrees] = useState(null);
-  const [popUpInfo, setPopUpInfo] = useState(null);
-  const [viewport, setViewport] = useState(null);
+  const [treeField, setTreeField] = useState(null);
   const [treesAll, setTreesAll] = useState(null);
 
   const address = JSON.parse(localStorage.getItem('location'));
@@ -46,9 +45,9 @@ const TreeMap = () => {
               longitude={tree?.location?.lng}
               anchor="bottom"
               onClick={
-                e => {
-                  e.preventDefault();
-                  setPopUpInfo(tree);
+                (e) => {
+                   e.originalEvent.stopPropagation();
+                  setTreeField(tree);
                 }
               }
             >
@@ -62,13 +61,19 @@ const TreeMap = () => {
     )
   }, [trees]);
 
+  useEffect(() => {
+    localStorage.setItem('treeField', JSON.stringify(treeField));
+  }, [treeField]);
+
+  console.log(address.lat, address.long);
   return (
+    <>
     <div className='map-container'>
       <Map
         initialViewState={{
           latitude: address.lat,
           longitude: address.long,
-          zoom: 10,
+          zoom: 0,
           bearing: 0,
           pitch: 0
         }}
@@ -82,6 +87,7 @@ const TreeMap = () => {
         {treesAll}
       </Map>
     </div>
+    </>
   )
 };
 

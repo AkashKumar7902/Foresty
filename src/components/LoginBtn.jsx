@@ -30,7 +30,6 @@ const LoginBtn = () => {
             shape="rectangular"
             theme="filled_blue"
             // state_cookie_domain="/"
-            useOneTap={true}
             onSuccess={credentialResponse => {
                 login(credentialResponse);
             }}

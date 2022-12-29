@@ -25,6 +25,7 @@ const Navbar = () => {
 
     const logOut = () => {
         localStorage.clear();
+        window.location.reload();
     }
 
     const user =
