@@ -80,7 +80,7 @@ const Navbar = () => {
                             {user ? (
                                 <>
                                     <MenuItem>
-                                        <Link to={`/profile/${user?.id}`} className="flex gap-2 items-center">
+                                        <Link to={`/userprofile/${user?.id}`} className="flex gap-2 items-center">
                                             <CgProfile />
                                             <div>Profile</div>
                                         </Link>

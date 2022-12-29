@@ -177,7 +177,9 @@ const Water = () => {
       <div className="w-full relative h-[50vh] md:h-[80vh]">
         {treeField && (
           <div className="absolute flex flex-col items-center p-1 top-1 right-1 rounded-lg border-2 border-green-300 bg-green-200 z-20 h-[150px] w-[100px] md:h-[200px] md:w-[140px]">
-            <img src={mapmarkericon} className="w-[40px] rounded-3xl mt-[12px]" alt="tree-icon" />
+            <a href={`/tree/${treeField?._id}`}>
+              <img src={mapmarkericon} className="w-[40px] rounded-3xl mt-[12px]" alt="tree-icon" />
+            </a>
             <p className="text-xs md:text-sm mt-[10px] md:mt-[35px]"> {treeField?.plantedDate.substr(0, 10)}</p>
             <p className="text-xs md:text-sm"> {treeField?.species}</p>
             <a href={`/userprofile/${treeField?.plantedby._id}`}>

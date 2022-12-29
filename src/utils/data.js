@@ -6,3 +6,20 @@ export const getTreesForMap = `*[_type=="trees"]
 export const getCountOfTreesByUser = (userId) => {
     return `count(*[_type=="trees" && plantedby._ref==${userId}])`
 }
+export const getTreeById = (treeId) => {
+    return `*[_type=="trees" && _id=='${treeId}'] {
+        plantedDate,
+        plantedby->{userName, _id},
+        plant_image,
+        species,
+    }`
+}
+export const getUserById = (userId) => {
+    return `*[_type=="user" && _id=='${userId}'] {
+        _createdAt,
+        userName,
+        image,
+        email,
+        _id,
+    }`
+}
