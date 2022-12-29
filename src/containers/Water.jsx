@@ -25,8 +25,8 @@ const YlocationBtnStyles =
   "bg-gray-300 cursor:default text-green-500 rounded-lg text-bold p-4";
 const NlocationBtnStyles =
   "bg-gray-300 hover:bg-gray-400 text-red-500 rounded-lg text-bold p-4";
-  const activeBtnStyles =
-    "bg-green-800 text-white font-bold p-2 w-32 outline-none";
+const activeBtnStyles =
+  "bg-green-800 text-white font-bold p-2 w-32 outline-none";
 
 const Water = () => {
 
@@ -46,169 +46,179 @@ const Water = () => {
   const [isFilled, setIsFilled] = useState(false);
   const [directions, setDirections] = useState(null);
 
-useEffect(() => {
-  client
-    .fetch(getTreesForMap)
-    .then((trees) => {
-      setTrees(trees);
-    })
-    .catch((err) => {
-      console.error(err);
-    });
-}, []);
-
-useEffect(() => {
-  setTreesAll(() => {
-    return trees?.map((tree) => {
-      if (!tree?.location?.lat || !tree?.location?.lng) return null;
-      return (
-        <Marker
-          key={tree?._id}
-          latitude={tree?.location?.lat}
-          longitude={tree?.location?.lng}
-          onClick={(e) => {
-            e.originalEvent.stopPropagation();
-            setTreeField(tree);
-            setIsFilled(true);
-          }}
-          anchor="bottom"
-        >
-          <button
-            className="w-[25px] border-2 border-green-500 p-[2px] hover:cursor-pointer z-50"
-          >
-            <img src={mapmarkericon} alt="map-marker-icon" />
-          </button>
-        </Marker>
-      );
-    });
-  });
-}, [trees]);
-  
   useEffect(() => {
-    
+    client
+      .fetch(getTreesForMap)
+      .then((trees) => {
+        setTrees(trees);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
+  useEffect(() => {
+    setTreesAll(() => {
+
+    });
+  }, [trees]);
+
+  useEffect(() => {
+
   }, [treeField]);
-  
-   const getLocationThroughIp = () => {
-     const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_IPGEO_TOKEN}`;
-     fetch(url)
-       .then((res) => res.json())
-       .then((res) => {
-         setAddress({ lat: res.latitude, long: res.longitude });
-       })
-       .catch((err) => console.log(err));
-   };
 
-   function getLocation() {
-     if (navigator.geolocation) {
-       navigator.geolocation.getCurrentPosition(showPosition, altWay);
-     } else {
-       getLocationThroughIp();
-     }
-   }
+  const getLocationThroughIp = () => {
+    const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_IPGEO_TOKEN}`;
+    fetch(url)
+      .then((res) => res.json())
+      .then((res) => {
+        setAddress({ lat: res.latitude, long: res.longitude });
+      })
+      .catch((err) => console.log(err));
+  };
 
-   async function showPosition(position) {
-     setAddress({
-       lat: position.coords.latitude,
-       long: position.coords.longitude,
-     });
-   }
+  function getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(showPosition, altWay);
+    } else {
+      getLocationThroughIp();
+    }
+  }
 
-   function altWay() {
-     getLocationThroughIp();
-   }
+  async function showPosition(position) {
+    setAddress({
+      lat: position.coords.latitude,
+      long: position.coords.longitude,
+    });
+  }
 
-   useEffect(() => {
-      fetch()
-   }, [treeField]);
+  function altWay() {
+    getLocationThroughIp();
+  }
 
-    const uploadImage = (e) => {
-        const { type, name } = e.target.files[0];
-        if (type === 'image/png' || type === 'image/svg' || type === 'image/jpg' || type === 'image/gif' || type === 'image/jpeg') {
-          setWrongImageType(false);
-          setLoading(true);
-          client.assets
-            .upload('image', e.target.files[0], { contentType: type, filename: name })
-            .then((document) => {
-              setImageAsset(document);
-              setLoading(false);
-            })
-            .catch((error) => {
-              console.log("image upload error: ", error);
-            })
-        } else {
-          setWrongImageType(true);
+  const uploadImage = (e) => {
+    const { type, name } = e.target.files[0];
+    if (type === 'image/png' || type === 'image/svg' || type === 'image/jpg' || type === 'image/gif' || type === 'image/jpeg') {
+      setWrongImageType(false);
+      setLoading(true);
+      client.assets
+        .upload('image', e.target.files[0], { contentType: type, filename: name })
+        .then((document) => {
+          setImageAsset(document);
+          setLoading(false);
+        })
+        .catch((error) => {
+          console.log("image upload error: ", error);
+        })
+    } else {
+      setWrongImageType(true);
+    }
+  }
+
+  function submitWaterTree() {
+    const date = new Date().toISOString().substr(0, 10);
+    if (imageAsset?._id && address) {
+      const doc = {
+        _type: 'water',
+        wateredBy: {
+          _type: 'array',
+          _ref: user.sub
+        },
+        wateredAt: {
+          _type: 'array',
+        },
+        TreeWatered: {
+          _type: 'reference',
+          _ref: trees._id
         }
-      }
+      };
+      client.create(doc)
+        .then(() => {
+          window.location.reload();
+        })
+        .catch((err) => console.log(err))
+    }
+    else {
+      setFields(true);
+      setTimeout(() => {
+        setFields(false);
+      }, 5000);
+    }
+  }
 
-      function submitWaterTree() {
-        const date = new Date().toISOString().substr(0, 10);
-        if(imageAsset?._id && address) {
-          const doc = {
-            _type: 'water',
-            wateredBy: {
-              _type: 'array',
-              _ref: user.sub
-            },
-            wateredAt: {
-                _type: 'array',
-            },
-            TreeWatered: {
-                _type: 'reference',
-              _ref: trees._id
-            }
-          };
-          client.create(doc)
-            .then(() => {
-              window.location.reload();
-            })
-            .catch((err) => console.log(err))
-        }
-        else {
-          setFields(true);
-          setTimeout(() => {
-            setFields(false);
-          }, 5000);
-        }
-      }
-  
-useEffect(() => {
-localStorage.getItem("user") !== "undefined"
-  ? (
-    setUser(JSON.parse(localStorage.getItem("user")))
-  ) : localStorage.clear();
-}, []);
-      
-useEffect(() => {
-setName(user?.name);
-}, [user])
-  
+  useEffect(() => {
+    localStorage.getItem("user") !== "undefined"
+      ? (
+        setUser(JSON.parse(localStorage.getItem("user")))
+      ) : localStorage.clear();
+  }, []);
+
+  useEffect(() => {
+    setName(user?.name);
+  }, [user])
+
+  console.log(treeField);
 
   return (
-    <div>
-      <div className="text-center py-20 text-5xl font-extrabold font-green text-blue-600">
+    <div className="flex flex-col px-[20px] md:px-[50px] justify-center">
+      <div className="text-center py-20 pt-28 text-5xl font-extrabold font-green text-blue-600">
         Water a plant and help it become a Tree.
       </div>
-      <div className="map-container mx-auto px-20">
-          <Map
-            initialViewState={{
-              latitude: address.lat,
-              longitude: address.long,
-              zoom: 10,
-              bearing: 0,
-              pitch: 0,
-            }}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
-            mapboxAccessToken={MAPBOX_token}
-          >
-            <GeolocateControl position="top-left" />
-            <FullscreenControl position="top-left" />
-            <NavigationControl position="top-left" />
-            <ScaleControl />
-            {treesAll}
-          </Map>
+      <div className="w-full relative h-[50vh] md:h-[80vh]">
+        {treeField && (
+          <div className="absolute flex flex-col items-center p-1 top-1 right-1 rounded-lg border-2 border-green-300 bg-green-200 z-20 h-[150px] w-[100px] md:h-[200px] md:w-[140px]">
+            <img src={mapmarkericon} className="w-[40px] rounded-3xl mt-[12px]" alt="tree-icon" />
+            <p className="text-xs md:text-sm mt-[10px] md:mt-[35px]"> {treeField?.plantedDate.substr(0, 10)}</p>
+            <p className="text-xs md:text-sm"> {treeField?.species}</p>
+            <a href={`/userprofile/${treeField?.plantedby._id}`}>
+              <p className="text-xs md:text-sm hover:underline">{treeField?.plantedby.userName}</p>
+            </a>
+          </div>
+        )}
+        <Map
+          initialViewState={{
+            latitude: address.lat,
+            longitude: address.long,
+            zoom: 10,
+            bearing: 0,
+            pitch: 0,
+          }}
+          mapStyle="mapbox://styles/mapbox/streets-v11"
+          mapboxAccessToken={MAPBOX_token}
+        >
+          <GeolocateControl position="top-left" />
+          <FullscreenControl position="top-left" />
+          <NavigationControl position="top-left" />
+          <ScaleControl />
+          {trees?.map((tree) =>
+            tree?.location?.lat && tree?.location?.lng &&
+            (
+              <Marker
+                key={tree?._id}
+                latitude={tree?.location?.lat}
+                longitude={tree?.location?.lng}
+                onClick={(e) => {
+                  e.originalEvent.stopPropagation();
+                  setTreeField(tree);
+                  setIsFilled(true);
+                }}
+                anchor="bottom"
+              >
+                <button
+                  className={treeField === tree ?
+                    "w-[25px] border-2 border-red-500 p-[2px] hover:cursor-pointer z-50"
+                    : "w-[25px] border-2 border-green-500 p-[2px] hover:cursor-pointer z-50"
+                  }
+                >
+                  <img src={mapmarkericon} alt="map-marker-icon" />
+                </button>
+              </Marker>
+            )
+          )}
+        </Map>
       </div>
       <div>
-        <div className="flex flex-col items-center gap-10 py-10">
+        <div className="flex flex-col items-center gap-10 px-5 py-10">
           <p className="text-3xl md:text-4xl text-center font-bold border-b-gray-300 w-full border-b-2 pb-6">
             Steps for watering a plant
           </p>
@@ -251,8 +261,8 @@ setName(user?.name);
                 <label className="flex flex-row items-center gap-3">
                   {!isFilled ? (
                     <>
-                    <p className="font-bold">Please Select the tree you want to water from the above map</p>
-                    <FaExclamation className="text-red-800" />
+                      <p className="font-bold">Please Select the tree you want to water from the above map</p>
+                      <FaExclamation className="text-red-800" />
                     </>
                   ) : (
                     <>
@@ -297,9 +307,9 @@ setName(user?.name);
                         className="h-full w-full"
                       />
                       <button
-                          type="button"
-                          className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
-                          onClick={(e) => { e.preventDefault(); setImageAsset(null) }}
+                        type="button"
+                        className="absolute bottom-3 right-3 p-3 rounded-full bg-white text-xl cursor-pointer outline-none hover:shadow-md transition-all duration-500 ease-in-out"
+                        onClick={(e) => { e.preventDefault(); setImageAsset(null) }}
                       >
                         <MdDelete />
                       </button>
@@ -339,7 +349,7 @@ setName(user?.name);
           )}
         </div>
       </div>
-      </div> 
+    </div >
   );
 };
 

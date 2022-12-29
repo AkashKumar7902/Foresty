@@ -24,7 +24,6 @@ const Profile = () => {
           Joined on
         </p>
       </div>
-
     </div>
   )
 }
