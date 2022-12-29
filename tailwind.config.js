@@ -5,6 +5,9 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
+    fontFamily: {
+      'cursive': ['kalam', 'cursive'],
+    },
     extend: {
       width: {
         190: '190px',
