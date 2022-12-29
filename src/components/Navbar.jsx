@@ -1,5 +1,4 @@
 import React from 'react'
-import logo from '../assets/logo192.png'
 import { Button } from '@chakra-ui/react'
 import { useNavigate, Link, Outlet } from 'react-router-dom';
 import { GiHamburgerMenu } from 'react-icons/gi'
@@ -9,6 +8,7 @@ import { CgProfile } from 'react-icons/cg'
 import { FiLogOut } from 'react-icons/fi'
 import { FiLogIn } from 'react-icons/fi'
 import { ChevronDownIcon } from '@chakra-ui/icons'
+import logo from '../assets/Myproject.png'
 import {
     Menu,
     MenuButton,
@@ -28,17 +28,18 @@ const Navbar = () => {
     }
 
     const user =
-      localStorage.getItem("user") !== "undefined"
-        ? JSON.parse(localStorage.getItem("user"))
-        : localStorage.clear();
+        localStorage.getItem("user") !== "undefined"
+            ? JSON.parse(localStorage.getItem("user"))
+            : localStorage.clear();
 
     const navigate = useNavigate();
 
     return (
         <>
             <div className='fixed top-0 flex flex-row justify-between z-50 w-full text-gray-900 bg-gray-300 bg-opacity-70 dark:bg-dark dark:text-gray-100 backdrop-filter backdrop-blur-lg dark:bg-opacity-50'>
-                <Link to='/'>
-                    <img src={logo} className="w-[50px] ml-[10px]" alt="logo" />
+                <Link to='/' className='flex jusity-start items-center w-full gap-3 p-2'>
+                    <img src={logo} className="w-[45px] ml-[10px]" alt="logo" />
+                    <p className="font-cursive text-2xl text-green-900">Foresty</p>
                 </Link>
                 <div className='hidden gap-5 items-center md:flex'>
                     <Link to='/Articles'>
@@ -52,8 +53,8 @@ const Navbar = () => {
                         </p>
                     </Link>
                     {!user ? (
-                        <LoginBtn/>
-                    ): (
+                        <LoginBtn />
+                    ) : (
                         <div className='mr-4'>
                             <Menu>
                                 <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
@@ -61,9 +62,9 @@ const Navbar = () => {
                                 </MenuButton>
                                 <MenuList colorScheme="green" className="shadow-xl">
                                     <MenuItem>Your Profile</MenuItem>
-                                        <button type="button" onClick={logOut}>
-                                            <MenuItem>Sign Out</MenuItem>
-                                        </button>
+                                    <button type="button" onClick={logOut}>
+                                        <MenuItem>Sign Out</MenuItem>
+                                    </button>
                                 </MenuList>
                             </Menu>
                         </div>
