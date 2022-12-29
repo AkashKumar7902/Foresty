@@ -25,7 +25,7 @@
     width: 100%;
     margin-bottom: 10px;
     padding: 20px;
-    border-radius:10px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
 }
 
@@ -35,9 +35,9 @@
 }
 
 #TreeMap {
-border-top-right-radius: 9999px;
-    border-bottom-right-radius: 9999px ;
-} 
+    border-top-right-radius: 9999px;
+    border-bottom-right-radius: 9999px;
+}
 
 @media screen and (max-width: 768px) {
     .list {
@@ -55,8 +55,14 @@ border-top-right-radius: 9999px;
 
 .map-container {
     height: 600px;
-  }
+}
 
+.user-background {
+    background-image: url('./assets/userBackground.jpg');
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-position: center
+}
 
 .sidebar {
     background-color: rgba(35, 55, 75, 0.9);
@@ -69,4 +75,4 @@ border-top-right-radius: 9999px;
     left: 0;
     margin: 12px;
     border-radius: 4px;
-    }
+}
