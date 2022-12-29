@@ -1,4 +1,3 @@
-import TreeMap from "../components/TreeMap";
 import { GiPlantWatering } from "react-icons/gi";
 import Spinner from '../components/Spinner';
 import { client } from '../client'
@@ -164,6 +163,17 @@ const Water = () => {
       <div className="text-center py-20 pt-28 text-5xl font-extrabold font-green text-blue-600">
         Water a plant and help it become a Tree.
       </div>
+
+      {!treeField ? (
+        <div className="p-3 text-red-900 text-xl font-semibold text-center">
+          * Please select the tree you want to water
+        </div>
+      ) : (
+        <div className="flex gap-2 justify-center items-center p-3 text-xl text-green-900 font-semibold text-center">
+          <p>Selected</p> <TiTick />
+        </div>
+      )}
+
       <div className="w-full relative h-[50vh] md:h-[80vh]">
         {treeField && (
           <div className="absolute flex flex-col items-center p-1 top-1 right-1 rounded-lg border-2 border-green-300 bg-green-200 z-20 h-[150px] w-[100px] md:h-[200px] md:w-[140px]">

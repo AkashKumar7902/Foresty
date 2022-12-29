@@ -14,7 +14,7 @@ const PlantATree = () => {
 
     useEffect(() => {
         getAQI();
-        localStorage.setItem("location", JSON.stringify(address));  
+        localStorage.setItem("location", JSON.stringify(address));
     }, [address]);
 
     const options = {
@@ -54,7 +54,7 @@ const PlantATree = () => {
         const url = `https://api.waqi.info/feed/geo:${address.lat};${address.long}/?token=${token}`;
         fetch(url)
             .then((res) => res.json())
-            .then((data) => console.log(data))
+            .then((data) => setAqi(data))
             .catch((err) => console.log(err));
     };
 
@@ -65,6 +65,9 @@ const PlantATree = () => {
                 <div className='flex flex-col gap-5 order-2 md:order-2'>
                     <p className='bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-red-600'>
                         Help reduce your area's carbon footprint and AQI by planting a tree.
+                    </p>
+                    <p className='bg-clip-text text-3xl text-transparent bg-gradient-to-r from-green-700 to-red-600'>
+                        AQI of your location is : {aqi && aqi.data.aqi}
                     </p>
                     <Link to='/plant'>
                         <Button variant='solid' size="lg" colorScheme='green'>

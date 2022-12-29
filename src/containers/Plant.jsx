@@ -9,7 +9,17 @@ import { client } from "../client";
 import { Input } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import TreeMap from "../components/TreeMap";
+import mapmarkericon from "../assets/map-marker-icon.png";
+import { getTreesForMap } from "../utils/data";
+
+import Map, {
+  Marker,
+  Popup,
+  NavigationControl,
+  FullscreenControl,
+  ScaleControl,
+  GeolocateControl,
+} from "react-map-gl";
 import {
   Alert,
   AlertIcon,
@@ -18,6 +28,8 @@ import {
   Box,
   CloseButton,
 } from "@chakra-ui/react";
+
+const MAPBOX_token = process.env.REACT_APP_MAPBOX_TOKEN;
 
 const YlocationBtnStyles =
   "bg-gray-300 cursor:default text-green-500 rounded-lg text-bold p-4";
@@ -29,21 +41,30 @@ const notActiveBtnStyles =
   "bg-green-200 text-black font-bold p-2 w-32 outline-none";
 
 const Plant = () => {
-  const [name, setName] = useState(null);
   const [user, setUser] = useState(null);
-  const [text, setText] = useState("aqi");
-  const [address, setAddress] = useState(null);
+  const [address, setAddress] = useState(
+    JSON.parse(localStorage.getItem("location"))
+  );
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState(false);
   const [imageAsset, setImageAsset] = useState(null);
   const [wrongImageType, setWrongImageType] = useState(false);
   const [species, setSpecies] = useState(null);
-
-  let token = process.env.REACT_APP_AQI_TOKEN;
+  const [treeField, setTreeField] = useState(null);
+  const [isFilled, setIsFilled] = useState(false);
+  const [trees, setTrees] = useState(null);
+  const [treesAll, setTreesAll] = useState(null);
 
   useEffect(() => {
-    getLocation();
-  })
+    client
+      .fetch(getTreesForMap)
+      .then((trees) => {
+        setTrees(trees);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
 
   const getLocationThroughIp = () => {
     const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_IPGEO_TOKEN}`;
@@ -146,51 +167,62 @@ const Plant = () => {
       : localStorage.clear();
   }, []);
 
-  useEffect(() => {
-    setName(user?.name);
-  }, [user]);
-
   return (
     <div className="flex flex-col justify-center gap-32 pt-20 w-full px-3 sm:px-10 md:px-20">
       <div className="flex flex-col jusitfy-center gap-4 w-full">
-        <div className="flex flex-row justify-center">
-          <button
-            onClick={(e) => {
-              setText(e.target.textContent);
+        <div className="w-full relative h-[50vh] md:h-[80vh]">
+          {isFilled && (
+            <div className="absolute flex flex-col items-center p-1 top-1 right-1 rounded-lg border-2 border-green-300 bg-green-200 z-20 h-[150px] w-[100px] md:h-[200px] md:w-[140px]">
+              <img src={mapmarkericon} className="w-[40px] rounded-3xl mt-[12px]" alt="tree-icon" />
+              <p className="text-xs md:text-sm mt-[10px] md:mt-[35px]"> {treeField?.plantedDate.substr(0, 10)}</p>
+              <p className="text-xs md:text-sm"> {treeField?.species}</p>
+              <a href={`/userprofile/${treeField?.plantedby._id}`}>
+                <p className="text-xs md:text-sm hover:underline">{treeField?.plantedby.userName}</p>
+              </a>
+            </div>
+          )}
+          <Map
+            initialViewState={{
+              latitude: address.lat,
+              longitude: address.long,
+              zoom: 10,
+              bearing: 0,
+              pitch: 0,
             }}
-            id="aqi"
-            className={`${
-              text === "aqi" ? activeBtnStyles : notActiveBtnStyles
-            }`}
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+            mapboxAccessToken={MAPBOX_token}
           >
-            aqi
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              setText(e.target.textContent);
-            }}
-            id="TreeMap"
-            className={`${
-              text === "TreeMap" ? activeBtnStyles : notActiveBtnStyles
-            }`}
-          >
-            TreeMap
-          </button>
+            <GeolocateControl position="top-left" />
+            <FullscreenControl position="top-left" />
+            <NavigationControl position="top-left" />
+            <ScaleControl />
+            {trees?.map((tree) =>
+              tree?.location?.lat && tree?.location?.lng &&
+              (
+                <Marker
+                  key={tree?._id}
+                  latitude={tree?.location?.lat}
+                  longitude={tree?.location?.lng}
+                  onClick={(e) => {
+                    e.originalEvent.stopPropagation();
+                    setTreeField(tree);
+                    setIsFilled(true);
+                  }}
+                  anchor="bottom"
+                >
+                  <button
+                    className={treeField === tree ?
+                      "w-[25px] border-2 border-red-500 p-[2px] hover:cursor-pointer z-50"
+                      : "w-[25px] border-2 border-green-500 p-[2px] hover:cursor-pointer z-50"
+                    }
+                  >
+                    <img src={mapmarkericon} alt="map-marker-icon" />
+                  </button>
+                </Marker>
+              )
+            )}
+          </Map>
         </div>
-        {text === "aqi" ? (
-          <div className="overflow:hidden w-full">
-            <iframe
-              width="100%"
-              height="700px"
-              src="https://aqicn.org/here/#!gl!28.6542!77.2373"
-            />
-          </div>
-        ) : (
-          <TreeMap />
-        )}
-
-        {/* mapbox here */}
       </div>
       <div className="flex flex-col items-center gap-10">
         <p className="text-3xl md:text-4xl text-center font-bold border-b-gray-300 w-full border-b-2 pb-6">
@@ -329,7 +361,7 @@ const Plant = () => {
           </div>
         )}
       </div>
-    </div>
+    </div >
   );
 };
 
