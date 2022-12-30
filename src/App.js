@@ -9,9 +9,10 @@ import Water from './containers/Water';
 import NotFound from './containers/NotFound';
 import Contact from './containers/Contact';
 import Profile from './containers/Profile';
-import HeaderFooter from './components/HeaderFooter';
+import HeaderFooter from './components/HeaderFooter/HeaderFooter';
 import TreeDetails from './containers/TreeDetails';
 import { GoogleOAuthProvider } from '@react-oauth/google'
+import Report from './containers/Report';
 
 const App = () => {
   const [user, setUser] = useState(null)
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="/plant" element={<Plant />} />
           <Route path="/water" element={<Water />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/reportaissue" element={<Report />} />
           <Route path="/userprofile/:id" element={<Profile />} />
           <Route path="/tree/:id" element={<TreeDetails />} />
           <Route path="/*" element={<NotFound />} />
