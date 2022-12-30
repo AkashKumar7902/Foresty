@@ -11,6 +11,7 @@ const LoginBtn = () => {
         const { name, picture, sub, email } = data;
         const doc = {
             _type: "user",
+            _id: sub,
             sub: sub,
             userName: name,
             image: picture,
