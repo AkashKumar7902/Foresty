@@ -10,7 +10,7 @@ const Profile = () => {
   const [user, setUser] = useState(null);
 
   const queryString = getUserById(id);
-
+  console.log(queryString);
   useEffect(() => {
     client.fetch(queryString)
       .then((res) => {

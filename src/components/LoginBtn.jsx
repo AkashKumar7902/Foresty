@@ -1,23 +1,22 @@
 import { GoogleLogin, useGoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
-import { client } from "../client"; 
+import { client } from "../client";
 
 const LoginBtn = () => {
     const navigate = useNavigate();
     function login(res) {
         const data = jwt_decode(res.credential);
-        console.log(data);
         localStorage.setItem("user", JSON.stringify(data));
         const { name, picture, sub, email } = data;
         const doc = {
-            _id: sub,
             _type: "user",
+            sub: sub,
             userName: name,
             image: picture,
             email,
         };
-        client.createIfNotExists(doc).then(() => {  
+        client.createIfNotExists(doc).then(() => {
             console.log("success");
             navigate("/", { replace: true });
         });
@@ -41,4 +40,3 @@ const LoginBtn = () => {
 }
 
 export default LoginBtn;
-    

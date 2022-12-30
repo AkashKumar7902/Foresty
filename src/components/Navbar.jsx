@@ -58,10 +58,13 @@ const Navbar = () => {
                     ) : (
                         <div className='mr-4'>
                             <Menu>
-                                <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
-                                    Profile
-                                </MenuButton>
+                                <a href={`/userprofile/${user?.sub}`}>
+                                    <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
+                                        Profile
+                                    </MenuButton>
+                                </a>
                                 <MenuList colorScheme="green" className="shadow-xl">
+
                                     <MenuItem>Your Profile</MenuItem>
                                     <button type="button" onClick={logOut}>
                                         <MenuItem>Sign Out</MenuItem>
@@ -80,10 +83,10 @@ const Navbar = () => {
                             {user ? (
                                 <>
                                     <MenuItem>
-                                        <Link to={`/userprofile/${user?.id}`} className="flex gap-2 items-center">
+                                        <a href={`/userprofile/${user?.sub}`} className="flex gap-2 items-center">
                                             <CgProfile />
                                             <div>Profile</div>
-                                        </Link>
+                                        </a>
                                     </MenuItem>
                                     <MenuItem>
                                         <Link to="/log" className="flex gap-2 items-center">

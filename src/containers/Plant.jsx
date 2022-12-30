@@ -42,9 +42,7 @@ const notActiveBtnStyles =
 
 const Plant = () => {
   const [user, setUser] = useState(null);
-  const [address, setAddress] = useState(
-    JSON.parse(localStorage.getItem("location"))
-  );
+  const [address, setAddress] = useState(null);
   const [loading, setLoading] = useState(false);
   const [fields, setFields] = useState(false);
   const [imageAsset, setImageAsset] = useState(null);
@@ -54,6 +52,10 @@ const Plant = () => {
   const [isFilled, setIsFilled] = useState(false);
   const [trees, setTrees] = useState(null);
   const [treesAll, setTreesAll] = useState(null);
+
+  useEffect(() => {
+    getLocation();
+  }, [])
 
   useEffect(() => {
     client
@@ -181,47 +183,49 @@ const Plant = () => {
               </a>
             </div>
           )}
-          <Map
-            initialViewState={{
-              latitude: address.lat,
-              longitude: address.long,
-              zoom: 10,
-              bearing: 0,
-              pitch: 0,
-            }}
-            mapStyle="mapbox://styles/mapbox/streets-v11"
-            mapboxAccessToken={MAPBOX_token}
-          >
-            <GeolocateControl position="top-left" />
-            <FullscreenControl position="top-left" />
-            <NavigationControl position="top-left" />
-            <ScaleControl />
-            {trees?.map((tree) =>
-              tree?.location?.lat && tree?.location?.lng &&
-              (
-                <Marker
-                  key={tree?._id}
-                  latitude={tree?.location?.lat}
-                  longitude={tree?.location?.lng}
-                  onClick={(e) => {
-                    e.originalEvent.stopPropagation();
-                    setTreeField(tree);
-                    setIsFilled(true);
-                  }}
-                  anchor="bottom"
-                >
-                  <button
-                    className={treeField === tree ?
-                      "w-[25px] border-2 border-red-500 p-[2px] hover:cursor-pointer z-50"
-                      : "w-[25px] border-2 border-green-500 p-[2px] hover:cursor-pointer z-50"
-                    }
+          {address && (
+            <Map
+              initialViewState={{
+                latitude: address.lat,
+                longitude: address.long,
+                zoom: 10,
+                bearing: 0,
+                pitch: 0,
+              }}
+              mapStyle="mapbox://styles/mapbox/streets-v11"
+              mapboxAccessToken={MAPBOX_token}
+            >
+              <GeolocateControl position="top-left" />
+              <FullscreenControl position="top-left" />
+              <NavigationControl position="top-left" />
+              <ScaleControl />
+              {trees?.map((tree) =>
+                tree?.location?.lat && tree?.location?.lng &&
+                (
+                  <Marker
+                    key={tree?._id}
+                    latitude={tree?.location?.lat}
+                    longitude={tree?.location?.lng}
+                    onClick={(e) => {
+                      e.originalEvent.stopPropagation();
+                      setTreeField(tree);
+                      setIsFilled(true);
+                    }}
+                    anchor="bottom"
                   >
-                    <img src={mapmarkericon} alt="map-marker-icon" />
-                  </button>
-                </Marker>
-              )
-            )}
-          </Map>
+                    <button
+                      className={treeField === tree ?
+                        "w-[25px] border-2 border-red-500 p-[2px] hover:cursor-pointer z-50"
+                        : "w-[25px] border-2 border-green-500 p-[2px] hover:cursor-pointer z-50"
+                      }
+                    >
+                      <img src={mapmarkericon} alt="map-marker-icon" />
+                    </button>
+                  </Marker>
+                )
+              )}
+            </Map>
+          )}
         </div>
       </div>
       <div className="flex flex-col items-center gap-10">

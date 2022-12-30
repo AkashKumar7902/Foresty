@@ -116,20 +116,10 @@ const Water = () => {
 
   function submitWaterTree() {
     const date = new Date().toISOString().substr(0, 10);
-    if (imageAsset?._id && address) {
+    if (imageAsset?._id && address && treeField) {
       const doc = {
-        _type: 'water',
-        wateredBy: {
-          _type: 'array',
-          _ref: user.sub
-        },
-        wateredAt: {
-          _type: 'array',
-        },
-        TreeWatered: {
-          _type: 'reference',
-          _ref: trees._id
-        }
+        _type: 'watereddata',
+
       };
       client.create(doc)
         .then(() => {
@@ -151,12 +141,6 @@ const Water = () => {
         setUser(JSON.parse(localStorage.getItem("user")))
       ) : localStorage.clear();
   }, []);
-
-  useEffect(() => {
-    setName(user?.name);
-  }, [user])
-
-  console.log(treeField);
 
   return (
     <div className="flex flex-col px-[20px] md:px-[50px] justify-center">
