@@ -58,14 +58,13 @@ const Navbar = () => {
                     ) : (
                         <div className='mr-4'>
                             <Menu>
-                                <a href={`/userprofile/${user?.sub}`}>
-                                    <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
-                                        Profile
-                                    </MenuButton>
-                                </a>
+                                <MenuButton as={Button} colorScheme="green" rightIcon={<ChevronDownIcon />}>
+                                    Profile
+                                </MenuButton>
                                 <MenuList colorScheme="green" className="shadow-xl">
-
-                                    <MenuItem>Your Profile</MenuItem>
+                                    <a href={`/userprofile/${user?.sub}`}>
+                                        <MenuItem>Your Profile</MenuItem>
+                                    </a>
                                     <button type="button" onClick={logOut}>
                                         <MenuItem>Sign Out</MenuItem>
                                     </button>
