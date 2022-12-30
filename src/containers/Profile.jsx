@@ -1,7 +1,7 @@
 import React from 'react'
 import { client } from '../client'
 import { useState, useEffect } from 'react'
-import logo from '../assets/Myproject.png'
+import logo from '../assets/mapmarker.png'
 import { useParams } from 'react-router-dom'
 import { getUserById } from '../utils/data'
 

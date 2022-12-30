@@ -1,11 +1,19 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Button, Image, Stack, Heading, Text, Divider, ButtonGroup } from '@chakra-ui/react'
 import Amazon_logo from '../assets/Amazon_logo.png'
 import t_shirt from '../assets/t_shirt.png'
 import hoodie from '../assets/hoodie.png'
 import badge from '../assets/badge.png'
 
+
 const RewardsPageComp1 = () => {
+
+    const [rewardAll, setRewardAll] = React.useState(null);
+
+    useEffect(() => {
+
+    }, [])
+
     return (
         <div className='flex flex-col items-center justify-center w-full'>
             <div className='pt-20'>

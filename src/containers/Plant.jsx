@@ -162,7 +162,8 @@ const Plant = () => {
   return (
     <>
       <div className="flex flex-col justify-center gap-32 pt-20 w-full px-3 sm:px-10 md:px-20">
-        <div className="text-center py-20 pt-28 text-5xl font-extrabold font-green text-blue-600">
+        <div className="text-center relative py-20 pt-28 text-5xl font-extrabold text-green-900">
+          <div className="absolute -top-20 -left-4 -bottom-32 -right-4 bgimagehome1 -z-50"></div>
           Our tree warriors planted these trees. Plant yours now!
         </div>
         <div className="flex flex-col jusitfy-center gap-4 w-full">

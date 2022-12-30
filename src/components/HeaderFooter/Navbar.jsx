@@ -8,7 +8,7 @@ import { CgProfile } from 'react-icons/cg'
 import { FiLogOut } from 'react-icons/fi'
 import { FiLogIn } from 'react-icons/fi'
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import logo from '../../assets/Myproject.png'
+import logo from '../../assets/mapmarker.png'
 import {
     Menu,
     MenuButton,
@@ -98,11 +98,12 @@ const Navbar = () => {
                                 </>
                             ) : (
                                 <>
-                                    <MenuItem>
-                                        <Link to="/login" className="flex gap-2 items-center">
+                                    <MenuItem className='relative'>
+                                        <LoginBtn />
+                                        <div className="flex gap-2 items-center">
                                             <FiLogIn />
                                             <div>Login</div>
-                                        </Link>
+                                        </div>
                                     </MenuItem>
                                 </>
                             )}
