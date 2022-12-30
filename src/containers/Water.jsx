@@ -4,7 +4,7 @@ import { client } from '../client'
 import React, { useState, useEffect } from 'react'
 import { MdDelete } from 'react-icons/md';
 import { AiOutlineCloudUpload } from 'react-icons/ai'
-import { getTreesForMap } from "../utils/data";
+import { getTreesForMap, getUserById } from "../utils/data";
 import Map, {
   Marker,
   Popup,
@@ -40,10 +40,8 @@ const Water = () => {
   const [imageAsset, setImageAsset] = useState(null);
   const [wrongImageType, setWrongImageType] = useState(false);
   const [trees, setTrees] = useState(null);
-  const [treesAll, setTreesAll] = useState(null);
   const [treeField, setTreeField] = useState(null);
   const [isFilled, setIsFilled] = useState(false);
-  const [directions, setDirections] = useState(null);
 
   useEffect(() => {
     client
@@ -55,16 +53,6 @@ const Water = () => {
         console.error(err);
       });
   }, []);
-
-  useEffect(() => {
-    setTreesAll(() => {
-
-    });
-  }, [trees]);
-
-  useEffect(() => {
-
-  }, [treeField]);
 
   const getLocationThroughIp = () => {
     const url = `https://api.ipgeolocation.io/ipgeo?apiKey=${process.env.REACT_APP_IPGEO_TOKEN}`;
@@ -119,13 +107,58 @@ const Water = () => {
     if (imageAsset?._id && address && treeField) {
       const doc = {
         _type: 'watereddata',
-
+        TreeWatered: {
+          _type: 'reference',
+          _ref: treeField?._id,
+        },
+        image: {
+          _type: 'image',
+          asset: {
+            _type: 'reference',
+            _ref: imageAsset?._id,
+          },
+        },
+        wateredBy: {
+          _type: 'reference',
+          _ref: user?.sub,
+        }
       };
       client.create(doc)
-        .then(() => {
-          window.location.reload();
+        .then((res) => {
+          console.log("watered data created")
+          client.patch(treeField?._id)
+            .setIfMissing({ watered: [] })
+            .append('watered', [{
+              _type: 'reference',
+              _key: res?._id,
+              _ref: res?._id,
+            }])
+            .commit()
+            .then((res) => {
+              console.log("tree data updated")
+            })
+            .catch((err) => {
+              console.log("tree data update error: ", err)
+            })
+
+          client.patch(user?.sub)
+            .setIfMissing({ watered: [] })
+            .append('watered', [{
+              _type: 'reference',
+              _key: res?._id,
+              _ref: res?._id,
+            }])
+            .commit()
+            .then((res) => {
+              console.log("user data updated")
+            })
+            .catch((err) => {
+              console.log("user data update error: ", err)
+            })
         })
-        .catch((err) => console.log(err))
+        .catch((err) => {
+          console.log("watered data create error: ", err)
+        })
     }
     else {
       setFields(true);
