@@ -1,70 +1,86 @@
-# Getting Started with Create React App
+# Want to contribute to this awesome project and be a part Foresty?
+ Follow this developer guide to get started. You can add new functionalities, fix bugs, or improve documentation. Everyone is welcome to contribute and all ideas are appreciated. 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+ ## Setting up your local development environment
 
-## Available Scripts
+ ### 1. Clone or Fork the repository [Foresty](https://github.com).
 
-In the project directory, you can run:
+ For cloning run the following command in your terminal:
 
-### `npm start`
+ ```
+    git clone https://github.com/OfficialAkashKumar/new.git
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+To create a fork of [Foresty](https://github.com) repository, click on the fork button on the top right corner of the repository page. This will create a copy of the repository in your account. Now clone the forked repository to your local machine.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```
+    git clone https://github.com/{your_username}/new.git
+```
 
-### `npm test`
+### 2. Install the dependencies
+Navigate to the project directory and install the dependencies using the following command:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+    npm install
+```
+### 3. Providing the API keys
+To run the project, you need to provide the API keys. Rename the file `.env.example` to `.env` and provide the API keys.
+Following are the API keys required:
+1. `REACT_APP_MAPBOX_TOKEN` : Mapbox API key
+2. `REACT_APP_GOOGLE_LOGIN_CLIENT_ID` : Google login client ID, you can obtain it from [here](https://developers.google.com/identity/sign-in/web/sign-in)
+3. `REACT_APP_SANITY_PROJECT_ID` : Sanity project ID. Setup a sanity project by following the sanity guide [here](https://www.sanity.io/docs/create-a-sanity-project). Copy the project ID from the sanity dashboard and paste it in the `.env` file.
+4. `REACT_APP_SANITY_TOKEN` : Sanity token. You can obtain the token from the sanity dashboard. Go to the `API` tab and click on `Create a new token`. Copy the token and paste it in the `.env` file.
+5. `REACT_APP_AQI_TOKEN` : Air quality index token. You can obtain the token from [here](https://aqicn.org/data-platform/token/#/). Copy the token and paste it in the `.env` file.
+6. `REACT_APP_IPGEO_TOKEN` : IP Geolocation token. You can obtain the token from [ipgeolocation](https://ipgeolocation.io/). Copy the token and paste it in the `.env` file.
 
-### `npm run build`
+### 4. Run the project
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+To run the project, use the following command:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```
+    npm start
+```
+A new tab will open in your browser with the project running on `localhost:3000`.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contributing to the project
 
-### `npm run eject`
+ ### 1. Create a new branch
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+ Create a new branch from your forked repository for every issue you are working on. To create a new branch, run the following command:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ ```
+    git checkout -b <branch_name>
+ ```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+ ### 2. Commit your changes
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+ Make the changes and commit them. To commit your changes, run the following command:
 
-## Learn More
+ ```
+    git add .
+    git commit -m "commit message"
+ ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+ ### 3. Push your changes
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+ Push your changes to the remote repository. To push your changes, run the following command:
 
-### Code Splitting
+ ```
+    git push origin <branch_name>
+ ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+ ### 4. Create a pull request
 
-### Analyzing the Bundle Size
+ Go to the repository page and click on `Compare & pull request` button. Add a title and description to your pull request that explains your changes. Click on `Create pull request` button to create a pull request.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+ ### 5. Wait for the review
 
-### Making a Progressive Web App
+ Wait for the review from the maintainers. If there are any changes required, make the changes and push them. The maintainers will review the changes and merge the pull request if everything is fine.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+ ## Code of Conduct
 
-### Advanced Configuration
+ We follow the [Contributor Covenant](https://www.contributor-covenant.org/) as our Code of Conduct. Please read the Code of Conduct.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+ ## Facing any problem?
 
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+If you are facing any problem, feel free to ask us. You can reach us on LinkedIn at [Navin Chandra](https://www.linkedin.com/in/navin-chandra-b610b2144/) and [Akash Kumar](https://www.linkedin.com/in/akash-kumar-478391220/) or create an issue on the [Foresty](https://github.com/) repository.
