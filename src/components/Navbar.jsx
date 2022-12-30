@@ -33,6 +33,8 @@ const Navbar = () => {
             ? JSON.parse(localStorage.getItem("user"))
             : localStorage.clear();
 
+    console.log(user);
+
     const navigate = useNavigate();
 
     return (
@@ -88,10 +90,10 @@ const Navbar = () => {
                                         </a>
                                     </MenuItem>
                                     <MenuItem>
-                                        <Link to="/log" className="flex gap-2 items-center">
+                                        <button type="button" onClick={logOut}>
                                             <FiLogOut />
                                             <div>Logout</div>
-                                        </Link>
+                                        </button>
                                     </MenuItem>
                                 </>
                             ) : (
