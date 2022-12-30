@@ -70,6 +70,7 @@
 
 .list:nth-of-type(2n + 1) {
     background-color: #8bda8a;
+
 }
 
 .map-container {
@@ -95,4 +96,8 @@
     left: 0;
     margin: 12px;
     border-radius: 4px;
+}
+
+.bgimagehome1 {
+    background-image: url('./assets/homepage.jpg');
 }
