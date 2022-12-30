@@ -39,6 +39,7 @@ const Navbar = () => {
 
     return (
         <>
+
             <div className='fixed z-50 top-0 flex flex-row justify-between z-50 w-full text-gray-900 bg-gray-300 bg-opacity-70 dark:bg-dark dark:text-gray-100 backdrop-filter backdrop-blur-lg dark:bg-opacity-50'>
                 <Link to='/' className='flex jusity-start items-center w-full gap-3 p-2'>
                     <img src={logo} className="w-[45px] ml-[10px]" alt="logo" />
@@ -90,7 +91,7 @@ const Navbar = () => {
                                         </a>
                                     </MenuItem>
                                     <MenuItem>
-                                        <button type="button" onClick={logOut}>
+                                        <button className='flex gap-2' type="button" onClick={logOut}>
                                             <FiLogOut />
                                             <div>Logout</div>
                                         </button>
@@ -100,10 +101,7 @@ const Navbar = () => {
                                 <>
                                     <MenuItem className='relative'>
                                         <LoginBtn />
-                                        <div className="flex gap-2 items-center">
-                                            <FiLogIn />
-                                            <div>Login</div>
-                                        </div>
+
                                     </MenuItem>
                                 </>
                             )}

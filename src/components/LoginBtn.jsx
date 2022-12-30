@@ -12,7 +12,6 @@ const LoginBtn = () => {
         const doc = {
             _type: "user",
             _id: sub,
-            sub: sub,
             userName: name,
             image: picture,
             email,
