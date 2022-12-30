@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const footer = () => {
     return (
-        <>
-            <div className="grid md:grid-cols-5 bg-skin-lightBlue p-10 grid-cols-1 mt-10">
+        <div className='relative'>
+            <div className="relative grid md:grid-cols-5 bg-skin-lightBlue p-10 grid-cols-1 mt-10">
                 <div className=" text-center m-auto">
                     <img className="w-56 m-auto" src="/Logo.png" alt="logo" />
                     <p className="hidden lg:block">Plant trees and help the Earth.</p>
@@ -66,7 +66,7 @@ const footer = () => {
                 <p className="text-center text-white sm:pt-0 pt-4 cursor-pointer">Powered by Booklee</p>
 
             </div>
-        </>
+        </div>
     )
 }
 
