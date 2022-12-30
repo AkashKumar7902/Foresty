@@ -75,7 +75,7 @@ const Navbar = () => {
                         </div>
                     )}
                 </div>
-                <div className='md:hidden mr-3'>
+                <div className='md:hidden mr-3 mt-2'>
                     <Menu >
                         <MenuButton style={{ color: 'black' }} as={Button}>
                             <GiHamburgerMenu className='text-black' />
