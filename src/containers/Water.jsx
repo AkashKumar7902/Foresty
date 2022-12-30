@@ -1,6 +1,6 @@
 import { GiPlantWatering } from "react-icons/gi";
-import Spinner from '../components/Spinner';
-import { client } from '../client'
+import Spinner2 from '../components/Spinner2';
+import { client, urlFor } from '../client'
 import React, { useState, useEffect } from 'react'
 import { MdDelete } from 'react-icons/md';
 import { AiOutlineCloudUpload } from 'react-icons/ai'
@@ -18,7 +18,9 @@ import LoginBtn from '../components/LoginBtn';
 import { FaExclamation } from 'react-icons/fa'
 import { TiTick } from 'react-icons/ti'
 import mapmarkericon from "../assets/map-marker-icon.png";
-import LoadingBar from "react-top-loading-bar";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
+import { Spinner } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
 const MAPBOX_token = process.env.REACT_APP_MAPBOX_TOKEN;
 
@@ -26,8 +28,6 @@ const YlocationBtnStyles =
   "bg-gray-300 w-full cursor:default text-green-500 rounded-lg text-bold p-4";
 const NlocationBtnStyles =
   "bg-gray-300 w-full hover:bg-gray-400 text-red-500 rounded-lg text-bold p-4";
-const activeBtnStyles =
-  "bg-green-800 rounded-xl text-white font-bold p-2 w-40 outline-none";
 
 const Water = () => {
 
@@ -43,9 +43,9 @@ const Water = () => {
   const [trees, setTrees] = useState(null);
   const [treeField, setTreeField] = useState(null);
   const [isFilled, setIsFilled] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [success, setSuccess] = useState(false);
-
+  const [error, setError] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
     client
@@ -107,6 +107,9 @@ const Water = () => {
   }
 
   function submitWaterTree() {
+    setSuccess(false);
+    setError(false);
+    setClicked(true);
     const date = new Date().toISOString().substr(0, 10);
     if (imageAsset?._id && address && treeField) {
       const doc = {
@@ -129,7 +132,6 @@ const Water = () => {
       };
       client.create(doc)
         .then((res) => {
-          setProgress(50);
           console.log("watered data created")
           client.patch(treeField?._id)
             .setIfMissing({ watered: [] })
@@ -141,9 +143,9 @@ const Water = () => {
             .commit()
             .then((res) => {
               console.log("tree data updated")
-              setProgress(70);
             })
             .catch((err) => {
+              setError(true);
               console.log("tree data update error: ", err)
             })
 
@@ -156,16 +158,16 @@ const Water = () => {
             }])
             .commit()
             .then((res) => {
-              setProgress(90);
               console.log("user data updated")
             })
             .catch((err) => {
+              setError(true);
               console.log("user data update error: ", err)
             })
-          setProgress(100);
           setSuccess(true);
         })
         .catch((err) => {
+          setError(true)
           console.log("watered data create error: ", err)
         })
     }
@@ -175,6 +177,7 @@ const Water = () => {
         setFields(false);
       }, 5000);
     }
+    setClicked(false);
   }
 
   useEffect(() => {
@@ -183,15 +186,8 @@ const Water = () => {
         setUser(JSON.parse(localStorage.getItem("user")))
       ) : localStorage.clear();
   }, []);
-
   return (
     <>
-      <LoadingBar
-        // className="absolute top-0 left-0 w-full h-[3px]"
-        color='#2cc529'
-        progress={progress}
-        onLoaderFinished={() => setProgress(0)}
-      />
       <div className="flex flex-col px-[20px] md:px-[50px] justify-center">
         <div className="text-center py-20 pt-28 text-5xl font-extrabold font-green text-blue-600">
           Water a plant and help it become a Tree.
@@ -202,22 +198,30 @@ const Water = () => {
             * Please select the tree you want to water
           </div>
         ) : (
-          <div className="flex gap-2 justify-center items-center p-3 text-xl text-green-900 font-semibold text-center">
+          <div className="flex gap-2 flex-row justify-center items-center p-3 text-xl text-green-900 font-semibold text-center">
             <p>Selected</p> <TiTick />
+            <p></p>
           </div>
         )}
+
+
 
         <div className="w-full relative h-[50vh] md:h-[80vh]">
           {treeField && (
             <div className="absolute flex flex-col items-center p-1 top-1 right-1 rounded-lg border-2 border-green-300 bg-green-200 z-20 h-[150px] w-[100px] md:h-[200px] md:w-[140px]">
               <a href={`/tree/${treeField?._id}`}>
-                <img src={mapmarkericon} className="w-[40px] rounded-3xl mt-[12px]" alt="tree-icon" />
+                {treeField?.plant_image &&
+                  <img src={urlFor(treeField?.plant_image).url()} className="w-[45px] rounded-full h-[45px] mt-[12px]" alt="tree-icon" />
+                }
               </a>
               <p className="text-xs md:text-sm mt-[10px] md:mt-[35px]"> {treeField?.plantedDate.substr(0, 10)}</p>
               <p className="text-xs md:text-sm"> {treeField?.species}</p>
-              <a href={`/userprofile/${treeField?.plantedby._id}`}>
+              <Link to={`/userprofile/${treeField?.plantedby._id}`}>
                 <p className="text-xs md:text-sm hover:underline">{treeField?.plantedby.userName}</p>
-              </a>
+              </Link>
+              <Link to={'/tree/' + treeField?._id}>
+                <p className="text-xs mt-2 sm:mt-3  md:text-sm underline">View Tree</p>
+              </Link>
             </div>
           )}
           <Map
@@ -251,8 +255,8 @@ const Water = () => {
                 >
                   <button
                     className={treeField === tree ?
-                      "w-[25px] border-2 border-red-500 p-[2px] hover:cursor-pointer z-50"
-                      : "w-[25px] border-2 border-green-500 p-[2px] hover:cursor-pointer z-50"
+                      "w-[25px] border-2 border-green-900 p-[2px] rounded-xl hover:cursor-pointer z-50"
+                      : "w-[25px] border-2 border-green-500 p-[2px] rounded-xl hover:cursor-pointer z-50"
                     }
                   >
                     <img src={mapmarkericon} alt="map-marker-icon" />
@@ -309,23 +313,32 @@ const Water = () => {
                   <label className="flex flex-row items-center gap-3">
                     {!isFilled ? (
                       <>
-                        <p className="font-bold">Please Select the tree you want to water from the above map</p>
+                        <p className="text-red-800 font-bold">Please Select the tree you want to water from the above map</p>
                         <FaExclamation className="text-red-800" />
                       </>
                     ) : (
                       <>
-                        <p className="font-bold">Tree has been Selected</p>
+                        <p className="font-bold text-green-800">Tree has been Selected</p>
                         <TiTick className="font-green-800" />
                       </>
                     )}
                   </label>
+                  {
+                    isFilled &&
+                    <div className="flex flex-col text-blue-900 mt-4">
+                      <a href={`https://www.google.com/maps/place/${treeField?.location.lat},${treeField?.location.lng}`} className="flex flex-row gap-3 items-center">
+                        <p className="text-sm sm:text-md font-bold hover:underline">Click to see the directions for the tree</p>
+                        <ArrowForwardIcon />
+                      </a>
+                    </div>
+                  }
                 </div>
-                <label className="flex flex-col gap-3 w-full items-center">
+                <div className="flex flex-col gap-3 w-full items-center">
                   <p className="w-full lg:w-3/5 font-bold">
                     Upload Image of the planted sapling
                   </p>
                   <div className="flex justify-center items-center flex-col border-2 bg-gray-200 w-full lg:w-3/5 border-dashed border-gray-400 p-3 h-380">
-                    {loading && <Spinner />}
+                    {loading && <Spinner2 />}
                     {wrongImageType && <p>Wrong Image Type</p>}
                     {!imageAsset ? (
                       <label>
@@ -364,8 +377,8 @@ const Water = () => {
                       </div>
                     )}
                   </div>
-                </label>
-                <div class="w-3/5 flex justify-center items-center">
+                </div>
+                <div class="w-full lg:w-3/5 flex justify-center items-center">
                   <button
                     type="button"
                     onClick={() => {
@@ -377,7 +390,7 @@ const Water = () => {
                   </button>
                 </div>
                 <div>
-                  <button onClick={submitWaterTree} className={activeBtnStyles}>
+                  <button onClick={submitWaterTree} className="bg-green-800 rounded-xl active:bg-green-700 transition-all ease-in text-white font-bold p-2 w-40 outline-none">
                     Submit
                   </button>
                 </div>
@@ -398,14 +411,36 @@ const Water = () => {
           </div>
         </div>
       </div >
-      {success &&
-        <div className="flex flex-row rounded-lg items-center justify-between p-2 gap-2 z-50 m-4 bottom-0 bg-green-300 fixed right-0 w-[300px] sm:w-[400px] h-[50px]">
-          <p className="text">
-            water data added successfully
+      {clicked ? success ? (
+        <div className="flex flex-row rounded-lg items-center justify-between p-2 gap-2 z-50 m-4 bottom-0 bg-green-300 fixed right-0 w-[300px] sm:w-[400px] h-[50px]" >
+          <p>
+            plant data added successfully
           </p>
-          <RxCrossCircled className="cursor-pointer" onClick={() => setSuccess(false)} />
+          <RxCrossCircled className="cursor-pointer" onClick={() => setClicked(false)} />
         </div>
-      }
+      ) : (
+        <div className="flex flex-row rounded-lg items-center justify-between p-2 gap-2 z-50 m-4 bottom-0 bg-green-300 fixed right-0 w-[100px] sm:w-[100px] h-[50px]">
+          <Spinner />
+          <RxCrossCircled className="cursor-pointer" onClick={() => setClicked(false)} />
+        </div>
+      ) : (
+        <></>
+      )}
+      {clicked ? error ? (
+        <div className="flex flex-row rounded-lg items-center justify-between p-2 gap-2 z-50 m-4 bottom-0 bg-green-300 fixed right-0 w-[300px] sm:w-[400px] h-[50px]" >
+          <p>
+            Something went wrong
+          </p>
+          <RxCrossCircled className="cursor-pointer" onClick={() => setClicked(false)} />
+        </div>
+      ) : (
+        <div className="flex flex-row rounded-lg items-center justify-between p-2 gap-2 z-50 m-4 bottom-0 bg-green-300 fixed right-0 w-[100px] sm:w-[100px] h-[50px]">
+          <Spinner />
+          <RxCrossCircled className="cursor-pointer" onClick={() => setClicked(false)} />
+        </div>
+      ) : (
+        <></>
+      )}
     </>
   );
 };
