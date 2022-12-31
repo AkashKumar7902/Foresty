@@ -9,7 +9,7 @@ const Contact = () => {
                     ContactUs
                 </div>
                 <div className='flex center'>
-                    <form action="https://formsubmit.co/navinchandra772@gmail.com" method="POST">
+                    <form action="https://formsubmit.co/navinchandra772@gmail.com" method="POST" enctype="multipart/form-data">
                         {/* <input className='bg-green-200'
                         type="text" name="name" required /> */}
                         <div className='px-5 py-5 font-bold'>
