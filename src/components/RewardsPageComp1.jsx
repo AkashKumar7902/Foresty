@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import { Card, CardHeader, CardBody, CardFooter, Button, Image, Stack, Heading, Text, Divider, ButtonGroup } from '@chakra-ui/react'
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 import Amazon_logo from '../assets/Amazon_logo.png'
 import t_shirt from '../assets/t_shirt.png'
 import hoodie from '../assets/hoodie.png'
@@ -45,19 +46,17 @@ const RewardsPageComp1 = () => {
                                     Congratulations! You are now a Master Tree Planter. Use your points to redeem this badge.
                                 </Text>
                                 <Text color='blue.600' fontSize='2xl'>
-                                    reward
+                                    200 points
                                 </Text>
                             </Stack>
                         </CardBody>
                         <Divider />
                         <CardFooter>
                             <ButtonGroup spacing='2'>
-                                <Button variant='solid' colorScheme='blue'>
-                                    Redeem now
-                                </Button>
-                                {/* <Button variant='ghost' colorScheme='blue'>
-                                    Add to cart
-                                </Button> */}
+                                <a href="https://forms.office.com/r/ULdvWzLCTE" target="_blank" className="flex flex-row gap-3 items-center">
+                                    <p className="text-sm sm:text-md font-bold hover:underline">Fill out this form to redeem!</p>
+                                    <ArrowForwardIcon />
+                                </a>
                             </ButtonGroup>
                         </CardFooter>
                     </Card>
@@ -83,12 +82,10 @@ const RewardsPageComp1 = () => {
                         <Divider />
                         <CardFooter>
                             <ButtonGroup spacing='2'>
-                                <Button variant='solid' colorScheme='blue'>
-                                    Redeem now
-                                </Button>
-                                {/* <Button variant='ghost' colorScheme='blue'>
-                                    Add to cart
-                                </Button> */}
+                                <a href="https://forms.office.com/r/ULdvWzLCTE" target="_blank" className="flex flex-row gap-3 items-center">
+                                    <p className="text-sm sm:text-md font-bold hover:underline">Fill out this form to redeem!</p>
+                                    <ArrowForwardIcon />
+                                </a>
                             </ButtonGroup>
                         </CardFooter>
                     </Card>
@@ -114,12 +111,10 @@ const RewardsPageComp1 = () => {
                         <Divider />
                         <CardFooter>
                             <ButtonGroup spacing='2'>
-                                <Button variant='solid' colorScheme='blue'>
-                                    Redeem now
-                                </Button>
-                                {/* <Button variant='ghost' colorScheme='blue'>
-                                    Add to cart
-                                </Button> */}
+                                <a href="https://forms.office.com/r/ULdvWzLCTE" target="_blank" className="flex flex-row gap-3 items-center">
+                                    <p className="text-sm sm:text-md font-bold hover:underline">Fill out this form to redeem!</p>
+                                    <ArrowForwardIcon />
+                                </a>
                             </ButtonGroup>
                         </CardFooter>
                     </Card>
@@ -145,12 +140,10 @@ const RewardsPageComp1 = () => {
                         <Divider />
                         <CardFooter>
                             <ButtonGroup spacing='2'>
-                                <Button variant='solid' colorScheme='blue'>
-                                    Redeem now
-                                </Button>
-                                {/* <Button variant='ghost' colorScheme='blue'>
-                                    Add to cart
-                                </Button> */}
+                                <a href="https://forms.office.com/r/ULdvWzLCTE" target="_blank" className="flex flex-row gap-3 items-center">
+                                    <p className="text-sm sm:text-md font-bold hover:underline">Fill out this form to redeem!</p>
+                                    <ArrowForwardIcon />
+                                </a>
                             </ButtonGroup>
                         </CardFooter>
                     </Card>
@@ -176,18 +169,16 @@ const RewardsPageComp1 = () => {
                         <Divider />
                         <CardFooter>
                             <ButtonGroup spacing='2'>
-                                <Button variant='solid' colorScheme='blue'>
-                                    Redeem now
-                                </Button>
-                                {/* <Button variant='ghost' colorScheme='blue'>
-                                    Add to cart
-                                </Button> */}
+                                <a href="https://forms.office.com/r/ULdvWzLCTE" target="_blank" className="flex flex-row gap-3 items-center">
+                                    <p className="text-sm sm:text-md font-bold hover:underline">Fill out this form to redeem!</p>
+                                    <ArrowForwardIcon />
+                                </a>
                             </ButtonGroup>
                         </CardFooter>
                     </Card>
                 </div>
             </div>
-        </div>
+        </div >
     )
 }
 
