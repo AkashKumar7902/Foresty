@@ -327,7 +327,7 @@ const Water = () => {
                     isFilled &&
                     <div className="flex flex-col text-blue-900 mt-4">
                       <a href={`https://www.google.com/maps/place/${treeField?.location.lat},${treeField?.location.lng}`} className="flex flex-row gap-3 items-center">
-                        <p className="text-sm sm:text-md font-bold hover:underline">Click to see the directions for the tree</p>
+                        <p className="text-sm sm:text-md font-bold hover:underline">Click to navigate to the tree</p>
                         <ArrowForwardIcon />
                       </a>
                     </div>
@@ -386,7 +386,7 @@ const Water = () => {
                     }}
                     className={address ? YlocationBtnStyles : NlocationBtnStyles}
                   >
-                    give location access
+                    Give Location Access
                   </button>
                 </div>
                 <div>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { GiThunderBlade } from 'react-icons/gi'
 import { Link } from 'react-router-dom'
 import mapmarker from '../../assets/mapmarker.png'
 
@@ -11,9 +12,9 @@ const footer = () => {
                 <img className="w-[100px] my-[50px] sm:my-[0px]" src={mapmarker} alt="logo" />
                 <div className="flex flex-col items-center justify-center gap-3">
                     <h2 className="text-xl font-bold">Know Us</h2>
-                    <Link to="/aboutus" className='hover:underline'>
-                        About
-                    </Link>
+                    <a href={'https://github.com/OfficialAkashKumar/Foresty'} className='hover:underline'>
+                        About our project
+                    </a>
                 </div>
                 <div className="flex flex-col items-center justify-center gap-3">
                     <h2 className="text-xl font-bold">Contact & Help</h2>

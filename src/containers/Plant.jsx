@@ -344,7 +344,7 @@ const Plant = () => {
                   }}
                   className={address ? YlocationBtnStyles : NlocationBtnStyles}
                 >
-                  give location access
+                  Give Location Access
                 </button>
               </div>
               <div>
