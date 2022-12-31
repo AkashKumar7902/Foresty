@@ -109,3 +109,31 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.profileimagetree {
+    background-image: url('./assets/profileimagetree.jpg');
+    background-size: cover;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    background-repeat: no-repeat;
+}
+
+
+.profileimagewater {
+    background-image: url('./assets/profileimagewater.jpg');
+    background-size: 40%;
+    background-position: center;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    background-repeat: no-repeat;
+}
+
+.profileimagecoins {
+    background-image: url('./assets/profileimagecoins.jpg');
+    background-size: 30%;
+    background-position: center;
+    z-index: -1000;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    background-repeat: no-repeat;
+}
