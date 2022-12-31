@@ -26,7 +26,7 @@ const Report = () => {
                     {/* <input type="email" name="email" required /> */}
                     <div className='px-5 py-5 font-bold'>
                         Message
-                        <Textarea name="message" placeholder="Details of your problem"></Textarea>
+                        <Textarea name="message" placeholder="Your feedback"></Textarea>
                     </div>
                     <div className='px-5 py-5'>
                         *Attach file if required
