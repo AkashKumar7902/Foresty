@@ -7,7 +7,7 @@ import { client, urlFor } from "../client";
 import { Input } from "@chakra-ui/react";
 import { AiOutlineCloudUpload } from "react-icons/ai";
 import { MdDelete } from "react-icons/md";
-import mapmarkericon from "../assets/map-marker-icon.png";
+import mapmarker from "../assets/mapmarker.png";
 import { getTreesForMap } from "../utils/data";
 import { RxCrossCircled } from 'react-icons/rx'
 
@@ -116,6 +116,8 @@ const Plant = () => {
 
   function submitTree() {
     setClicked(true);
+    setSuccess(false);
+    let response = null;
     const date = new Date().toISOString().substr(0, 10);
     if (imageAsset?._id && species && address) {
       const doc = {
@@ -139,12 +141,34 @@ const Plant = () => {
           },
         },
       };
+
       client
         .create(doc)
-        .then(() => {
-          setSuccess(true);
+        .then((res) => {
+          response = res;
         })
         .catch((err) => console.log(err));
+
+      console.log(response);
+
+      client.patch(user?.sub)
+        .setIfMissing({ coinsHave: 0 })
+        .inc({ coinsHave: 50 })
+        .append("treesPlanted",
+          [
+            {
+              _type: "reference",
+              _ref: response?._id,
+              _key: response?._id
+            }
+          ])
+        .commit()
+        .then((res) => {
+          setImageAsset(null)
+          setSuccess(true);
+          console.log(res)
+        })
+        .catch((err) => console.log(err))
     } else {
       setFields(true);
       setTimeout(() => {
@@ -221,7 +245,7 @@ const Plant = () => {
                           : "w-[25px] border-2 border-green-500 p-[2px] rounded-xl hover:cursor-pointer z-50"
                         }
                       >
-                        <img src={mapmarkericon} alt="map-marker-icon" />
+                        <img src={mapmarker} alt="map-marker-icon" />
                       </button>
                     </Marker>
                   )
@@ -268,7 +292,8 @@ const Plant = () => {
           </p>
           {user ? (
             <div className="flex flex-col items-center gap-10 w-full p-8">
-              <div className="flex flex-row items-center justify-center gap-2 w-full md:w-1/2">
+              <div className="flex flex-row relative items-center justify-center gap-2 w-full md:w-1/2">
+                <Link to={`/userprofile/${user?.sub}`} className="cursor-pointer absolute top-0 right-0 left-0 bottom-0" />
                 <img
                   src={user?.picture}
                   alt="user-profile"
