@@ -16,12 +16,15 @@ export const getTreeById = (treeId) => {
         watered 
     }`
 }
-export const getUserById = (userId) => {
+
+export const getUserInfoProfile = (userId) => {
     return `*[_type=="user" && _id=='${userId}'] {
         _createdAt,
         userName,
         image,
-        email,
         _id,
+        coinsHave,
+        treesPlanted,
+        watered
     }`
 }
