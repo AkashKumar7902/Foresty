@@ -62,15 +62,16 @@ const Navbar = () => {
                         <div className='mr-4'>
                             <Menu>
                                 <MenuButton as={Button} style={{ color: 'white' }} colorScheme="green" rightIcon={<ChevronDownIcon />}>
-                                    Profile
+
+                                    <CgProfile className='scale-150' />
                                 </MenuButton>
                                 <MenuList colorScheme="green" style={{ color: 'black' }} className="shadow-xl">
                                     <a href={`/userprofile/${user?.sub}`}>
                                         <MenuItem>Your Profile</MenuItem>
                                     </a>
-                                    <button type="button" onClick={logOut}>
+                                    <a type="button" className='w-full' onClick={logOut}>
                                         <MenuItem>Sign Out</MenuItem>
-                                    </button>
+                                    </a>
                                 </MenuList>
                             </Menu>
                         </div>

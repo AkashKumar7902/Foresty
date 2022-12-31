@@ -9,7 +9,9 @@ const footer = () => {
             <hr className='hidden sm:block px-10 bg-gray-100 h-[1px] mt-[50px]' />
             <div className="flex flex-col items-center sm:items-start sm:flex-row sm:justify-center gap-10 md:gap-[100px] p-10 pb-20 sm:pb-10 sm:my-[20px]">
                 <hr className='w-4/5 h-[1px] bg-gray-300 sm:hidden' />
-                <img className="w-[100px] my-[50px] sm:my-[0px]" src={mapmarker} alt="logo" />
+                <div className="flex flex-col items-center justify-center gap-3">
+                    <img className="w-[100px] my-[50px] sm:my-[0px]" src={mapmarker} alt="logo" />
+                </div>
                 <div className="flex flex-col items-center justify-center gap-3">
                     <h2 className="text-xl font-bold">Know Us</h2>
                     <a href={'https://github.com/OfficialAkashKumar/Foresty'} className='hover:underline'>
@@ -62,7 +64,7 @@ const footer = () => {
                 </div>
             </div>
             <div className="bg-black flex justify-between px-[7vw] sm:flex-row flex-col py-5">
-                <p className="text-center text-white ">Copyright&copy; Foresty 2022</p>
+                <p className="text-center text-white ">Copyright&copy; Foresty 2023</p>
 
                 <p className="text-center text-white sm:pt-0 pt-4 cursor-pointer">Powered by Foresty</p>
 

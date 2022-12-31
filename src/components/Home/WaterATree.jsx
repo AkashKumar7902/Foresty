@@ -11,11 +11,13 @@ const WaterATree = () => {
                 <p className='bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-red-600'>
                     Water a nearby planted tree to help it grow.
                 </p>
-                <Link to='/water'>
-                    <Button variant='solid' size="lg" colorScheme='blue'>
-                        Water a Tree
-                    </Button>
-                </Link>
+                <div className='flex justify-start'>
+                    <Link to='/water'>
+                        <Button variant='solid' size="lg" colorScheme='blue'>
+                            Water a Tree
+                        </Button>
+                    </Link>
+                </div>
             </div>
             <img src={waterTree} className="md:w-[30%] w-full md:order-2 order-1" alt='Planting_tree' />
         </div>

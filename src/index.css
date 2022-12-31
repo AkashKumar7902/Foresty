@@ -103,3 +103,9 @@
     background-size: cover;
     background-repeat: no-repeat;
 }
+
+.bgimagewater {
+    background-image: url('./assets/waterTreeBg.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+}

@@ -188,7 +188,8 @@ const Water = () => {
   }, []);
   return (
     <>
-      <div className="flex flex-col px-[20px] md:px-[50px] justify-center">
+      <div className="absolute top-0 bottom-0 left-0 right-0 -z-50 bgimagewater"></div>
+      <div className="flex flex-col px-[20px] md:px-[50px] justify-center ">
         <div className="text-center py-20 pt-28 text-5xl font-extrabold font-green text-blue-600">
           Water a plant and help it become a Tree.
         </div>
@@ -326,7 +327,7 @@ const Water = () => {
                   {
                     isFilled &&
                     <div className="flex flex-col text-blue-900 mt-4">
-                      <a href={`https://www.google.com/maps/place/${treeField?.location.lat},${treeField?.location.lng}`} className="flex flex-row gap-3 items-center">
+                      <a href={`https://www.google.com/maps/place/${treeField?.location.lat},${treeField?.location.lng}`} target="_blank" className="flex flex-row gap-3 items-center">
                         <p className="text-sm sm:text-md font-bold hover:underline">Click to navigate to the tree</p>
                         <ArrowForwardIcon />
                       </a>

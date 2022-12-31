@@ -7,6 +7,31 @@ import { Link } from 'react-router-dom'
 const PlantATree = () => {
     const [address, setAddress] = useState({ lat: null, long: null });
     const [aqi, setAqi] = useState(null);
+    const [aqiColor, setAqiColor] = useState('');
+
+
+    useEffect(() => {
+        if (aqi?.data?.aqi <= 50) {
+            setAqiColor("text-green-600");
+        }
+        else if (aqi?.data?.aqi <= 100) {
+            setAqiColor("text-yellow-600");
+        }
+        else if (aqi?.data?.aqi <= 150) {
+            setAqiColor("text-orange-600");
+        }
+        else if (aqi?.data?.aqi <= 200) {
+            setAqiColor("text-red-600");
+        }
+        else if (aqi?.data?.aqi <= 300) {
+            setAqiColor("text-purple-600");
+        }
+        else if (aqi?.data?.aqi > 300) {
+            setAqiColor("text-pink-600");
+        }
+    }, [aqi])
+
+    console.log(aqiColor)
 
     useEffect(() => {
         getLocation();
@@ -66,14 +91,18 @@ const PlantATree = () => {
                     <p className='bg-clip-text text-transparent bg-gradient-to-r from-green-700 to-red-600'>
                         Help reduce your area's carbon footprint and AQI by planting a tree.
                     </p>
-                    <p className='bg-clip-text text-3xl text-transparent bg-gradient-to-r from-green-700 to-red-600'>
-                        AQI of your location is : {aqi && aqi.data.aqi}
-                    </p>
-                    <Link to='/plant'>
-                        <Button variant='solid' size="lg" colorScheme='green'>
-                            Plant Tree
-                        </Button>
-                    </Link>
+                    <div className='text-2xl'>
+                        <p >
+                            AQI of your location is : <span className="text-4xl"><span className={aqiColor}>{aqi && aqi.data.aqi}</span></span>
+                        </p>
+                    </div>
+                    <div className='flex justify-start'>
+                        <Link to='/plant'>
+                            <Button variant='solid' size="lg" colorScheme='green'>
+                                Plant Tree
+                            </Button>
+                        </Link>
+                    </div>
                 </div>
             </div>
         </>
