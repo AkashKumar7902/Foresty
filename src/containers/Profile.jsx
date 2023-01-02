@@ -34,9 +34,9 @@ const Profile = () => {
   useEffect(() => {
     if (Array.isArray(res)) {
       const temp = res[0];
-      setCoins(temp.coinsHave);
-      setWater(temp.watered.length);
-      setTrees(temp.treesPlanted.length);
+      setCoins(temp?.coinsHave ? temp?.coinsHave : 0);
+      setWater(temp?.watered?.length ? temp?.watered?.length : 0);
+      setTrees(temp?.treesPlanted?.length ? temp?.treesPlanted?.length : 0);
     }
   }, [res])
 
