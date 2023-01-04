@@ -44,9 +44,7 @@ const footer = () => {
             </div>
             <div className="bg-black flex justify-between px-[7vw] sm:flex-row flex-col py-5">
                 <p className="text-center text-white ">Copyright&copy; Foresty 2023</p>
-
-                <p className="text-center text-white sm:pt-0 pt-4 cursor-pointer">Powered by Foresty</p>
-
+                <p className="text-center text-white sm:pt-0 pt-4">Powered by Foresty</p>
             </div>
         </div>
     )
