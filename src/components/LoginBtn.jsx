@@ -18,7 +18,7 @@ const LoginBtn = () => {
         };
         client.createIfNotExists(doc).then(() => {
             console.log("success");
-            navigate("/", { replace: true });
+            window.location.reload();
         });
     }
     return (

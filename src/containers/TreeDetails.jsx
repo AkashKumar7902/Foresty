@@ -34,7 +34,7 @@ const TreeDetails = () => {
         client.fetch(queryString)
             .then((res) => {
                 setTree(res[0]);
-                setCntWatered(res[0].watered.length)
+                setCntWatered(res[0].watered?.length)
                 const year = res[0].plantedDate.slice(0, 4);
                 const month = res[0].plantedDate.slice(5, 7);
                 const day = res[0].plantedDate.slice(8, 10);
