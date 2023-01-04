@@ -44,7 +44,7 @@ const Water = () => {
   const [treeField, setTreeField] = useState(null);
   const [isFilled, setIsFilled] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [error, setError] = useState(false);
+
   const [clicked, setClicked] = useState(false);
 
   useEffect(() => {
@@ -70,7 +70,6 @@ const Water = () => {
 
   function getLocation() {
     if (navigator.geolocation) {
-      getLocationThroughIp();
       navigator.geolocation.getCurrentPosition(showPosition, altWay);
     } else {
       getLocationThroughIp();
@@ -109,9 +108,7 @@ const Water = () => {
 
   function submitWaterTree() {
     setSuccess(false);
-    setError(false);
     setClicked(true);
-    let response = null;
     const date = new Date().toISOString().substr(0, 10);
     if (imageAsset?._id && address && treeField) {
       const doc = {
@@ -132,53 +129,50 @@ const Water = () => {
           _ref: user?.sub,
         }
       };
+
       client.create(doc)
         .then((res) => {
-          response = res;
           console.log("watered data created")
+          client.patch(treeField?._id)
+            .setIfMissing({ watered: [] })
+            .append('watered', [{
+              _type: 'reference',
+              _key: `tree-${res?._id}`,
+              _ref: res?._id,
+            }])
+            .commit()
+            .then((res) => {
+              console.log("tree data updated")
+            })
+            .catch((err) => {
+              console.log("tree data update error: ", err)
+            })
+
+          client.patch(user?.sub)
+            .setIfMissing({ coinsHave: 0 })
+            .inc({ coinsHave: 10 })
+            .setIfMissing({ watered: [] })
+            .append('watered', [{
+              _type: 'reference',
+              _ref: res?._id,
+              _key: `user-${res?._id}`,
+            }])
+            .commit()
+            .then((res) => {
+              setTreeField(null);
+              setIsFilled(null)
+              setImageAsset(null);
+              setClicked(false);
+              console.log("user data updated")
+              setSuccess(true);
+            })
+            .catch((err) => {
+              console.log("user data update error: ", err)
+            })
         })
         .catch((err) => {
-          setError(true)
           console.log("watered data create error: ", err)
         })
-
-
-      client.patch(treeField?._id)
-        .append('watered', [{
-          _type: 'reference',
-          _key: response?._id,
-          _ref: response?._id,
-        }])
-        .commit()
-        .then((res) => {
-          console.log("tree data updated")
-        })
-        .catch((err) => {
-          setError(true);
-          console.log("tree data update error: ", err)
-        })
-
-      client.patch(user?.sub)
-        .setIfMissing({ coinsHave: 0 })
-        .inc({ coinsHave: 10 })
-        .append('watered', [{
-          _type: 'reference',
-          _key: response?._id,
-          _ref: response?._id,
-        }])
-        .commit()
-        .then((res) => {
-          setTreeField(null);
-          setIsFilled(null)
-          setImageAsset(null);
-          setClicked(false);
-          console.log("user data updated")
-        })
-        .catch((err) => {
-          setError(true);
-          console.log("user data update error: ", err)
-        })
-      setSuccess(true);
     }
     else {
       setFields(true);

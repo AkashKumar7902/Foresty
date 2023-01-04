@@ -1,20 +1,27 @@
-# Want to contribute to this awesome project and be a part Foresty?
+# Foresty
+### A solution to climate change and environment protection.
+
+
+
+
+
+# Want to contribute to this awesome project and be a part of Foresty?
  Follow this developer guide to get started. You can add new functionalities, fix bugs, or improve documentation. Everyone is welcome to contribute and all ideas are appreciated. 
 
  ## Setting up your local development environment
 
- ### 1. Clone or Fork the repository [Foresty](https://github.com).
+ ### 1. Clone or Fork the repository [Foresty](https://github.com/OfficialAkashKumar/Foresty).
 
  For cloning run the following command in your terminal:
 
  ```
-    git clone https://github.com/OfficialAkashKumar/new.git
+    git clone https://github.com/OfficialAkashKumar/Foresty.git
 ```
 
 To create a fork of [Foresty](https://github.com) repository, click on the fork button on the top right corner of the repository page. This will create a copy of the repository in your account. Now clone the forked repository to your local machine.
 
 ```
-    git clone https://github.com/{your_username}/new.git
+    git clone https://github.com/{your_username}/Foresty.git
 ```
 
 ### 2. Install the dependencies
@@ -83,4 +90,4 @@ A new tab will open in your browser with the project running on `localhost:3000`
 
  ## Facing any problem?
 
-If you are facing any problem, feel free to ask us. You can reach us on LinkedIn at [Navin Chandra](https://www.linkedin.com/in/navin-chandra-b610b2144/) and [Akash Kumar](https://www.linkedin.com/in/akash-kumar-478391220/) or create an issue on the [Foresty](https://github.com/) repository.
+If you are facing any problem, feel free to ask us. You can reach us on LinkedIn at [Navin Chandra](https://www.linkedin.com/in/navin-chandra-b610b2144/) and [Akash Kumar](https://www.linkedin.com/in/akash-kumar-478391220/) or create an issue on the [Foresty](https://github.com/OfficialAkashKumar/Foresty) repository.

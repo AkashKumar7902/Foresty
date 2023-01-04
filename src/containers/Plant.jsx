@@ -117,7 +117,6 @@ const Plant = () => {
   function submitTree() {
     setClicked(true);
     setSuccess(false);
-    let response = null;
     const date = new Date().toISOString().substr(0, 10);
     if (imageAsset?._id && species && address) {
       const doc = {
@@ -145,30 +144,28 @@ const Plant = () => {
       client
         .create(doc)
         .then((res) => {
-          response = res;
+          client.patch(user?.sub)
+            .setIfMissing({ coinsHave: 0 })
+            .inc({ coinsHave: 50 })
+            .setIfMissing({ treesPlanted: [] })
+            .append("treesPlanted",
+              [
+                {
+                  _type: "reference",
+                  _ref: res?._id,
+                  _key: `tree-${res?._id}`
+                }
+              ])
+            .commit()
+            .then((res) => {
+              setImageAsset(null)
+              setSuccess(true);
+              console.log(res)
+            })
+            .catch((err) => console.log(err))
         })
         .catch((err) => console.log(err));
 
-      console.log(response);
-
-      client.patch(user?.sub)
-        .setIfMissing({ coinsHave: 0 })
-        .inc({ coinsHave: 50 })
-        .append("treesPlanted",
-          [
-            {
-              _type: "reference",
-              _ref: response?._id,
-              _key: response?._id
-            }
-          ])
-        .commit()
-        .then((res) => {
-          setImageAsset(null)
-          setSuccess(true);
-          console.log(res)
-        })
-        .catch((err) => console.log(err))
     } else {
       setFields(true);
       setTimeout(() => {
