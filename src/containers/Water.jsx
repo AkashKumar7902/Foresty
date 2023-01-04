@@ -70,6 +70,7 @@ const Water = () => {
 
   function getLocation() {
     if (navigator.geolocation) {
+      getLocationThroughIp();
       navigator.geolocation.getCurrentPosition(showPosition, altWay);
     } else {
       getLocationThroughIp();
