@@ -40,9 +40,20 @@ Following are the API keys required:
 5. `REACT_APP_AQI_TOKEN` : Air quality index token. You can obtain the token from [here](https://aqicn.org/data-platform/token/#/). Copy the token and paste it in the `.env` file.
 6. `REACT_APP_IPGEO_TOKEN` : IP Geolocation token. You can obtain the token from [ipgeolocation](https://ipgeolocation.io/). Copy the token and paste it in the `.env` file.
 
-### 4. Run the project
+### 4. Configuring Sanity Studio
+Sanity studio is used to manage the content of the website. To configure sanity studio, clone the [Foresty Backend](https://github.com/navin772/ForestyBackend) repository:
+```
+    git clone https://github.com/navin772/ForestyBackend.git
+```
+Change the `projectId` field in the `sanity.cli.js` and `sanity.config.js` file to the project ID you obtained from the sanity dashboard. Also update the `dataset` field in these 2 files. Now run the following command to start the sanity studio:
+```
+    sanity start
+```
+A new tab will open in your browser with the sanity studio running on `localhost:3333`. You can login to the studio using your google or github account. Now you can manage the content of the website.
 
-To run the project, use the following command:
+### 5. Run the project
+
+To run the project, use the following command in the _Foresty_ directory:
 
 ```
     npm start
