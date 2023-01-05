@@ -1,9 +1,9 @@
-# Foresty
-### A solution to climate change and environment protection.
-
-
-
-
+<h1>FORESTY</h1>
+A solution to tackle climate change and protect our environment.
+<br/>
+<br/>
+With the rising global temperature, ice caps are melting and sea level is rising. Planting Trees is the only option to save planet Earth.
+We developed a web application where users can upload the data of the tree they have planted. This will help us to keep track of the progress of the sapling. Users can also upload the water data. By doing so a sapling could grow into a tree and join the battle to save earth. Users can earn reward points for both watering and planting trees. Reward points can be redeemed in our rewards store. This will motivate our users to plant and water trees regularly.
 
 # Want to contribute to this awesome project and be a part of Foresty?
  Follow this developer guide to get started. You can add new functionalities, fix bugs, or improve documentation. Everyone is welcome to contribute and all ideas are appreciated. 
