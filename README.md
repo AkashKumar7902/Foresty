@@ -45,9 +45,15 @@ Sanity studio is used to manage the content of the website. To configure sanity 
 ```
     git clone https://github.com/navin772/ForestyBackend.git
 ```
-Change the `projectId` field in the `sanity.cli.js` and `sanity.config.js` file to the project ID you obtained from the sanity dashboard. Also update the `dataset` field in these 2 files. Now run the following command to start the sanity studio:
+
+Navigate to the `ForestyBackend` directory and install the dependencies using the following command:
 ```
-    sanity start
+    npm install
+```
+
+Change the `projectId` field in the `sanity.cli.js` and `sanity.config.js` file to the project ID you obtained from the sanity dashboard. Also update the `dataset` field in these 2 files to the dataset you are using from your sanity manage dashboard. Now run the following command to start the sanity studio:
+```
+    npm run dev
 ```
 A new tab will open in your browser with the sanity studio running on `localhost:3333`. You can login to the studio using your google or github account. Now you can manage the content of the website.
 
